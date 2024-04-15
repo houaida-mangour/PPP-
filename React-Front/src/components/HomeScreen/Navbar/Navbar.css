@@ -1,0 +1,32 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff2ce; 
+}
+
+.logoapp {
+    width: 100px;
+    height: auto;
+}
+
+.name {
+    font-size: 24px;
+    color: #d18100; 
+    font-weight: bold; 
+    margin: 0;
+}
+
+.logoapp,
+.name {
+    display: inline-block;
+    vertical-align: middle; 
+    justify-self: center;
+    cursor: pointer;
+
+}
+
+
+
+
