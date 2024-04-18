@@ -4,6 +4,9 @@
     align-items: center;
     padding: 10px;
     background-color: #fff2ce; 
+    position: sticky; 
+    top: 0;
+    z-index: 1000; 
 }
 
 .logoapp {
