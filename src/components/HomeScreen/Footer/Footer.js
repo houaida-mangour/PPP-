@@ -1,3 +1,4 @@
+// Dans votre composant Footer
 import React from 'react';
 import logo from './logo.png';
 import { IoMdContact } from 'react-icons/io';
@@ -21,15 +22,17 @@ function Footer() {
     { type: 'icon', icon: FaLinkedin },
     { type: 'section', title: <strong>Quick Links:</strong>, items: [
         <a key="home" href="#">Home</a>,
-        <a key="about" href="#">About Us</a>,
-        <a key="services" href="#">Services</a>,
+        <a key="about" href="#AboutUs">About Us</a>, 
+        <a key="services" href="#work-service">Services</a>,
+        <a key="Contact" href="#Contact">Asking Us</a>,
+        <a key="Team" href="#Team">Our Team</a>,
         <a key="events" href="#">Events</a>
       ] },
     { type: 'section', title: <strong>Contact</strong>, items: [
         'PLURIVENT',
         <><IoMdContact /> +21600000000</>,
         <><MdEmail /> PLURIVENT@gmail.com</>,
-        <><SiGooglemaps />INSAT, Centre Urabain Nord</>
+        <><SiGooglemaps />INSAT, Centre Urbain Nord</>
       ] },
     { type: 'section', title: <strong>Account</strong>, items: [
         <a key="signup" href="#">Signup</a>,

@@ -65,27 +65,15 @@
     color: #6a6a6a;
     margin: 1.5rem 0rem;
   }
-  .primary-button:hover {
-    background-color: rgb(234, 234, 234);
-  }
+
   .primary-subheading {
-    font-weight: 700;
-    color: #d18100;
-    font-size: 1.15rem;
-    text-align: center;
+    font-size: 2em; 
+    font-weight: bold; 
+    color: #d18100; 
+    margin-bottom: 20px; 
   }
 
-  .primary-heading {
-    text-align: center;
-    max-width: 90%;
-    color: rgb(151, 0, 0);
-  }
-  .primary-text {
-    text-align: center;
-    font-size: 15px;
-    font-weight: 500;
-    color: #d18100;
-  }
+
 
   body{
     background-color: #fff9e8;

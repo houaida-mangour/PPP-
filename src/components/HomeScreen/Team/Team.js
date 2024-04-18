@@ -8,6 +8,7 @@ import Eya from "./eya.jpeg";
 
 function Team () {
     return (
+        <div id="Team">
       <section className="section-white">
         <div className="container">
           <div className="row">
@@ -61,6 +62,7 @@ function Team () {
           </div>
         </div>
       </section>
+      </div>
     );
 }
 

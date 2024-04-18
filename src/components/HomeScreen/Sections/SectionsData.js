@@ -1,4 +1,4 @@
-import { faHouseUser, faInfoCircle, faAddressBook, faCalendar, faUnlock, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHouseUser, faInfoCircle, faAddressBook, faCalendar, faUnlock, faUser,faCog } from '@fortawesome/free-solid-svg-icons';
 
 export const SectionsData = [
     {
@@ -9,14 +9,21 @@ export const SectionsData = [
     },
     {
         title: 'About us',
-        url: '#',
+        url: '#AboutUs',
         cName: 'nav-links',
 
         icon: faInfoCircle 
     },
     {
+        title: 'Services',
+        url: '#work-service',
+        cName: 'nav-links',
+
+        icon: faCog 
+    },
+    {
         title: 'Contact',
-        url: '#',
+        url: '#Contact',
         cName: 'nav-links',
         icon: faAddressBook 
     },

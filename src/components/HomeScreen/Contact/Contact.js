@@ -27,7 +27,7 @@ const Contact = () => {
   };
 
   return (
-   
+   <div id="Contact">
     <div className="contact-form"> 
     <h1 className="primary-heading">Have Question In Mind?</h1>
       <h1 className="primary-heading">Let Us Help You</h1>
@@ -40,6 +40,7 @@ const Contact = () => {
         <textarea name="message" />
         <input type="submit" value="Send" />
       </form>
+    </div>
     </div>
   );
 };
