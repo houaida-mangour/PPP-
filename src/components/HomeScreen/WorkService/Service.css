@@ -1,0 +1,92 @@
+
+  
+.service-section-wrapper {
+    margin-top: 15rem;
+  }
+  .service-section-top p {
+    text-align: center;
+    max-width: 600px ;
+  }
+  .service-section-top h1 {
+    max-width: 700px ;
+  }
+  .service-section-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .service-section-info {
+    width: 290px;
+    min-height: 350px;
+    background-color: #fff2ce;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 1rem;
+    color: #d18100;
+    margin: 1rem 2rem;
+  }
+  .service-section-info h2 {
+    margin: 1rem 0rem;
+  }
+  .service-section-bottom {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .service-section-info p {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+
+  
+  .service-section-wrapper {
+    margin-top: 5rem ;
+  }
+  .service-section-bottom {
+    margin-top: 1rem ;
+  }  
+  .primary-heading {
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: #4c4c4c;
+    max-width: 600px;
+  }
+  .primary-text {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    max-width: 500px;
+    color: #6a6a6a;
+    margin: 1.5rem 0rem;
+  }
+  .primary-button:hover {
+    background-color: rgb(234, 234, 234);
+  }
+  .primary-subheading {
+    font-weight: 700;
+    color: #d18100;
+    font-size: 1.15rem;
+    text-align: center;
+  }
+
+  .primary-heading {
+    text-align: center;
+    max-width: 90%;
+    color: rgb(151, 0, 0);
+  }
+  .primary-text {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #d18100;
+  }
+
+  body{
+    background-color: #fff9e8;
+  }
