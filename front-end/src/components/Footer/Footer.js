@@ -39,7 +39,7 @@ function Footer() {
   ];
 
   return (
-    <footer className='bg-footer py-16 px-4 grid lg:grid-cols-3 gap-8 w-full'>
+    <footer className='bg-footer py-4 px-4 grid lg:grid-cols-3 gap-8 w-full'>
       <div> 
         <h1 className='footer-brand'>PLURIVENT    "EVENT MANAGEMENT PLATFORM"</h1>
     
