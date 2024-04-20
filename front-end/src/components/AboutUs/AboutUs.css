@@ -6,10 +6,12 @@
 }
 .description{
   font-size: 20px;
-  font-weight: 200;
   text-align: center;
   width : 80%;  
   margin : auto;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(63, 3, 3); 
 }
 
 
@@ -20,23 +22,17 @@
     font-weight: bold; 
     color: #d18100; 
     margin-bottom: 20px; 
-  }
-
-  .primary-heading {
-    text-align: center;
-    max-width: 90%;
-    color: rgb(151, 0, 0); 
-  }
-  .primary-text {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 300;
-    font-family: 'calibri';
     
   }
-  img{
-    padding : 20px;
-    width : 700px;
-    height : auto;
-    margin : auto;
-  }
+
+
+  .eventvideo {
+    display: block;
+    width: 100% ;
+    max-width: 450px ;
+    height: auto ; 
+    margin: auto; 
+    margin: 20px auto;
+}
+
+
