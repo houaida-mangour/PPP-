@@ -21,14 +21,14 @@ function Footer() {
     { type: 'icon', icon: FaLinkedin },
     { type: 'section', title: <strong>Quick Links:</strong>, items: [
         <a key="home" href="#">Home</a>,
-        <a key="about" href="#">About Us</a>,
-        <a key="services" href="#">Services</a>,
+        <a key="about" href="#AboutUs">About Us</a>,
+        <a key="services" href="#work-service">Services</a>,
         <a key="events" href="#">Events</a>
       ] },
     { type: 'section', title: <strong>Contact</strong>, items: [
         'PLURIVENT',
         <><IoMdContact /> +21600000000</>,
-        <><MdEmail /> Contact@PLURIVENT.com</>,
+        <><MdEmail /> PLURIVENT@gmail.com</>,
         <><SiGooglemaps />INSAT, Centre Urabain Nord</>
       ] },
     { type: 'section', title: <strong>Account</strong>, items: [

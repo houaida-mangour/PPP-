@@ -16,8 +16,7 @@ function AboutUs() {
                         for participant registration, streamlined rooming and catering coordination, and effective event promotion. Backed by a dedicated
                         team committed to excellence, we are here to support you every step of the way in bringing your vision to life.
                     </p>
-                    <div><video className="eventvideo" src={eventVideo} alt="Illustration of people planning an event" controls></video>
-                    </div>
+                    <video className="eventvideo" src={eventVideo} alt="Illustration of people planning an event" controls></video>
                 </div>
             </div>
         </div>

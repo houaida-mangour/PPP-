@@ -3,6 +3,7 @@ import Login from "../../components/Login/Login"
 import "./LoginPage.css"
 export default function LoginPage(){
     return(
+        <div id="LogIn">
         <div className="wrap">
              <LoginHeader
                 heading="Login to your account"
@@ -12,6 +13,7 @@ export default function LoginPage(){
                 />
                 <Login/>
             
+        </div>
         </div>
     )
 }

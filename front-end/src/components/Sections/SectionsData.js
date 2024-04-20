@@ -35,13 +35,13 @@ export const SectionsData = [
     },
     {
         title: 'Login',
-        url: '#',
+        url: '#LogIn',
         cName: 'nav-links-mobile',
         icon: faUnlock 
     },
     {
         title: 'Signup',
-        url: '#',
+        url: '#SignUp',
         cName: 'nav-links-mobile',
         icon: faUser 
     }   
