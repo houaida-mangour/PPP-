@@ -5,11 +5,10 @@
     padding: 5px;
 }
 .description{
-  font-size: 20px;
   text-align: center;
   width : 80%;  
   margin : auto;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: rgb(63, 3, 3); 
 }
