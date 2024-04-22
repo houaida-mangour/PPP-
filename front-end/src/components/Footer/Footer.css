@@ -1,0 +1,50 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.bg-footer {
+  background-color: #fff2ce
+}
+
+.social-icon {
+  color: #d18100;
+}
+
+
+
+.footer-brand {
+  font-size: 3xl;
+  font-weight: bold;
+  color: #d18100;
+  margin-bottom: 30px; 
+
+}
+
+.footer-description {
+  padding-top: 1;
+  padding-bottom: 1;
+  color: #9e5733;
+
+}
+
+.footer-section-title {
+  font-size: xl;
+  font-weight: medium;
+  color: #ffc116;
+}
+
+.footer-list-item {
+  padding-top: 2;
+  font-size: sm;
+  color: #9e5733;
+  margin-bottom: 8px; 
+}
+
+.footer-logo {
+  width: 300px; /* ajustez la largeur selon vos besoins */
+  height: 250px; /* permet de conserver les proportions de l'image */
+}
+
+
+
+

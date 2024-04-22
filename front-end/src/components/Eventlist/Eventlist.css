@@ -1,0 +1,29 @@
+
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.image img {
+  width: 1400px;
+  height: 350px;
+  object-fit: cover;
+}
+
+
+
+
+.title-content {
+  position: absolute;
+  top: 25%;
+  left: 8rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px; 
+  color: white; 
+  max-width: 40%; 
+}
+
+

@@ -1,0 +1,35 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff2ce; 
+    position: sticky; 
+    top: 0;
+    z-index: 1000; 
+}
+
+.logoapp {
+    width: 100px;
+    height: auto;
+}
+
+.name {
+    font-size: 24px;
+    color: #d18100; 
+    font-weight: bold; 
+    margin: 0;
+}
+
+.logoapp,
+.name {
+    display: inline-block;
+    vertical-align: middle; 
+    justify-self: center;
+    cursor: pointer;
+
+}
+
+
+
+
