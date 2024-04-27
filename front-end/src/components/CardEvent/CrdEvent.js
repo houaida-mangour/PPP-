@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function EventCard() {
   const [events, setEvents] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-   
     fetch('/api/events')
       .then(response => response.json())
       .then(data => setEvents(data))
@@ -28,29 +26,26 @@ export default function EventCard() {
   };
 
   return (
-    <>
-      {events.map(event => (
-        <Card key={event.id} sx={{ maxWidth: 345 }}>
-          <CardMedia
-            component="img"
-            alt={event.name}
-            height="140"
-            image={event.image} // Utilisation de l'URL de l'image spécifique à chaque événement
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {event.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {event.description}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small" onClick={() => handleParticipate(event.id)}>Participer</Button>
-            <Button size="small" onClick={() => handleLearnMore(event.id)}>En savoir plus</Button>
-          </CardActions>
-        </Card>
+    <Container>
+      {events.map((event, index) => (
+        index % 3 === 0 && <Row key={index}>
+          {events.slice(index, index + 3).map(event => (
+            <Col key={event.id}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={event.image} alt={event.name} />
+                <Card.Body>
+                  <Card.Title>{event.name}</Card.Title>
+                  <Card.Text>
+                    {event.description}
+                  </Card.Text>  
+                  <Button variant="primary" onClick={() => handleParticipate(event.id)}>Participer</Button>
+                  <Button variant="secondary" onClick={() => handleLearnMore(event.id)}>En savoir plus</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       ))}
-    </>
+    </Container>
   );
 }
