@@ -1,0 +1,31 @@
+.event-card-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .event-card {
+    width: 300px; 
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease-in-out; 
+  }
+  
+  .event-card:hover {
+    transform: translateY(-5px); 
+  }
+  
+  .event-card-media {
+    height: 150px; 
+  }
+  
+  .event-card-content {
+    padding: 16px;
+  }
+  
+  .event-card-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+  }
+  
