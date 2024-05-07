@@ -1,57 +1,53 @@
-import { useState } from 'react';
-import { loginFields } from "../../constants/formFields";
-import Input from "../Input/Input";
-import FormAction from "../FormAction";
-import FormExtra from "../FormExtra";
-import "./Login.css";
+import React, { useState } from "react";
+import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
-const fields=loginFields;
-let fieldsState = {};
-fields.forEach(field=>fieldsState[field.id]='');
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-export default function Login(){
-    const [loginState,setLoginState]=useState(fieldsState);
+  const navigate = useNavigate()
 
-    const handleChange=(e)=>{
-        setLoginState({...loginState,[e.target.id]:e.target.value})
-    }
+  Axios.defaults.withCredentials = true;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:8000/auth/Login", {
+      email,
+      password,
+    }).then(response => {
+        if(response.data.status) {
+            navigate('/')
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+  };
+  return (
+    <div className="sign-up-container">
+      <form className="sign-up-form" onSubmit={handleSubmit}>
+        <h2>Loign</h2>
 
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        authenticateUser();
-    }
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          autoComplete="off"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-    const authenticateUser = () =>{
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          placeholder="******"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-    }
-
-    return(
-   
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div className="-space-y-px">
-            {
-                fields.map(field=>
-                        <Input
-                            key={field.id}
-                            handleChange={handleChange}
-                            value={loginState[field.id]}
-                            labelText={field.labelText}
-                            labelFor={field.labelFor}
-                            id={field.id}
-                            name={field.name}
-                            type={field.type}
-                            isRequired={field.isRequired}
-                            placeholder={field.placeholder}
-                    />
-                
-                )
-            }
-        </div>
-
-        <FormExtra/>
-        <FormAction handleSubmit={handleSubmit} text="Login"/>
-
+        <button type="submit">Login</button>
+        <Link to="/forgotPassword">Forgot Password?</Link>
+        <p>Don't Have Account? <Link to="/SignUp">Sign Up</Link></p> 
       </form>
-  
-    )
-}
+    </div>
+  );
+};
+
+export default Login;
