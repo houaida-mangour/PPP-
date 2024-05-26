@@ -6,6 +6,10 @@ import LoginPage from './pages/LoginPage/LoginPage.js';
 import ForgotPassword from './pages/ForgotPassworf/ForgotPassword.js';
 import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
 import Dashboard from './pages/Dashboard/Dashboard';
+import EventForm from './components/EventForm/EventForm.js';
+import EventCards from './components/Evenements/EventCards.js';
+
+
 
 
 function App() {
@@ -19,6 +23,10 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetPassword/:token" element={<ResetPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/eventform" element={<EventForm />} />
+        <Route path="/eventcard" element={<EventCards />} />
+
+
 </Routes>
       </BrowserRouter>
     </div>

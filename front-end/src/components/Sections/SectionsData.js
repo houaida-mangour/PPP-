@@ -35,14 +35,16 @@ export const SectionsData = [
     },
     {
         title: 'Login',
-        url: '#LogIn',
+        url: 'LogIn',
         cName: 'nav-links-mobile',
         icon: faUnlock 
     },
     {
         title: 'Signup',
-        url: '#SignUp',
+        url: 'SignUp',
         cName: 'nav-links-mobile',
         icon: faUser 
     }   
 ];
+
+
