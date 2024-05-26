@@ -45,8 +45,7 @@ function Footer() {
     
         <p className='footer-description'>
           PLURIVENT offers a tailored web platform for seamless event registration, featuring intuitive handling of rooming and catering 
-          needs. Our goal is to empower event organizers with a comprehensive solution that simplifies every aspect of attendee management,
-          from registration to accommodation and catering requests.
+          needs.
         </p>
         <div className='flex justify-between md:w-[75%] my-6'>
           {items.map((item, index) => (

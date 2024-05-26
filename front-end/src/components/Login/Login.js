@@ -3,6 +3,7 @@ import { loginFields } from "../../constants/formFields";
 import Input from "../Input/Input";
 import FormAction from "../FormAction";
 import FormExtra from "../FormExtra";
+import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 
 const fields=loginFields;
@@ -16,9 +17,13 @@ export default function Login(){
         setLoginState({...loginState,[e.target.id]:e.target.value})
     }
 
+
+    const navigate = useNavigate();
     const handleSubmit=(e)=>{
         e.preventDefault();
         authenticateUser();
+        
+        navigate("/ParticipantDashboard");
     }
 
     const authenticateUser = () =>{
@@ -55,3 +60,4 @@ export default function Login(){
   
     )
 }
+
