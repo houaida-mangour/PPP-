@@ -6,7 +6,11 @@ const EventSchema = new mongoose.Schema({
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     location: { type: String, required: true },
-    participants: { type: Number, required: true },
+
+    /* J'ai fait cette modification */
+    organizer : { type: mongoose.Types.ObjectId, ref: 'User' },
+    participants: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+    
     imageUrl: { type: String, required: true }
 });
 
