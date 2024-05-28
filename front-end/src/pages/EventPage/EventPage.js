@@ -1,48 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Collection from "../../components/Evenements/Collection.js";
-import Navbar from "../../components/Navbar/Navbar";
-
-
+import Collection from '../../components/Evenements/Collection';
+import Navbar from '../../components/Navbar/Navbar';
 
 const EventPage = () => {
-    const [events, setEvents] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setLoading(true);
+        const pageSize = 6;
+        const eventsPerPage = [];
+        let totalPages = 1;
   
-    useEffect(() => {
-      const fetchEvents = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8000/events?page=${page}&limit=6`);
-          setEvents(response.data.events || []);
-          setTotalPages(response.data.totalPages || 1);
-        } catch (err) {
-          console.error('Error fetching events', err);
-        } finally {
-          setLoading(false);
+        // Récupérer le nombre total de pages
+        const totalResponse = await axios.get(`http://localhost:8000/events`);
+        totalPages = totalResponse.data.totalPages || 1;
+  
+        // Récupérer les événements pour chaque page
+        for (let i = 1; i <= totalPages; i++) {
+          const response = await axios.get(`http://localhost:8000/events?page=${i}&limit=${pageSize}`);
+          eventsPerPage.push(...(response.data.events || []));
         }
-      };
   
-      fetchEvents();
-    }, [page]);
+        setEvents(eventsPerPage);
+        setTotalPages(totalPages);
+      } catch (err) {
+        console.error('Error fetching events', err);
+      } finally {
+        setLoading(false);
+      }
+    };
   
-    if (loading) return <p>Loading...</p>;
-  
-    return (
-        <div>
+    fetchEvents();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+
+  return (
+    <div>
       <Navbar />
       <Collection
         data={events}
         emptyTitle="No Events Found"
         emptyStateSubtext="Come back later"
         collectionType="All_Events"
-        limit={6}
         page={page}
         totalPages={totalPages}
+        onPageChange={setPage}
       />
-      </div>
-    );
-  };
-  
-  export default EventPage;
+    </div>
+  );
+};
+
+export default EventPage;

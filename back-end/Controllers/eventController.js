@@ -56,22 +56,34 @@ export const createEvent = async (req, res) => {
 
 
 export const getEvents = async (req, res) => {
-    try {
-      const { page = 1, limit = 6 } = req.query;
-      const events = await Event.find()
-        .skip((page - 1) * limit)
-        .limit(parseInt(limit, 10));
-      const totalEvents = await Event.countDocuments();
-      const totalPages = Math.ceil(totalEvents / limit);
-  
-      res.status(200).json({
-        events,
-        totalPages,
-      });
-    } catch (error) {
-      res.status(500).json({ error: 'Unable to fetch events' });
+  try {
+    const { page = 1, limit = 6 } = req.query;
+    const parsedPage = parseInt(page, 10);
+    const parsedLimit = parseInt(limit, 10);
+
+    // Vérifier si les paramètres sont valides
+    if (isNaN(parsedPage) || isNaN(parsedLimit) || parsedPage <= 0 || parsedLimit <= 0) {
+      return res.status(400).json({ error: 'Invalid pagination parameters' });
     }
-  };
+
+    // Récupérer les événements avec pagination
+    const events = await Event.find()
+      .skip((parsedPage - 1) * parsedLimit)
+      .limit(parsedLimit);
+
+    // Compter le nombre total d'événements
+    const totalEvents = await Event.countDocuments();
+    const totalPages = Math.ceil(totalEvents / parsedLimit);
+
+    // Envoyer la réponse avec les événements et les informations de pagination
+    res.status(200).json({
+      events,
+      totalPages,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Unable to fetch events' });
+  }
+};
 
 export const getEventById = async (req, res) => {
     try {
