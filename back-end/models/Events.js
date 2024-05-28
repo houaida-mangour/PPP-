@@ -7,10 +7,7 @@ const EventSchema = new mongoose.Schema({
     endDate: { type: Date, required: true },
     location: { type: String, required: true },
     participants: { type: Number, required: true },
-    price: { type: Number, required: true },
-    imageUrl: { type: String, required: true },
-    organizer : { type: mongoose.Types.ObjectId, ref: 'User' },
-
+    imageUrl: { type: String, required: true }
 });
 
 const Event = mongoose.model('Event', EventSchema);
