@@ -1,59 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import Collection from '../Evenements/Collection';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { useridresponse } from '../Login/Login';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [organizedEvents, setOrganizedEvents] = useState([]);
-  const [eventsPage, setEventsPage] = useState(1);
-  // const [totalEventPages, setTotalEventPages] = useState(0);
+  const [userEvents, setUserEvents] = useState([]);
 
   useEffect(() => {
-    const fetchOrganizedEvents = async () => {
+    const fetchUserEvents = async () => {
       try {
-        const userId = useridresponse;
-
-        const response = await Axios.get(`/events/user/${userId}`);
-        setOrganizedEvents(response.data.events);
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:8000/events/user/${useridresponse}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserEvents(response.data.events);
       } catch (error) {
-        console.error('Error fetching organized events:', error);
+        console.error('Error fetching user events:', error);
       }
     };
 
-    fetchOrganizedEvents();
-  }, [eventsPage]);
-
-  const handleEventPageChange = (page) => {
-    setEventsPage(page);
-  };
+    fetchUserEvents();
+  }, []);
 
   return (
-    <>
-      <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
-        <div className="wrapper flex items-center justify-center sm:justify-between">
-          <h3 className='h3-bold text-center sm:text-left'>Events Organized</h3>
-          <button asChild size="lg" className="button hidden sm:flex">
-            <Link to="/eventform">
-              <button>Create Event</button>
+    <div>
+      <h2>Your Events</h2>
+      <ul>
+        {userEvents.map(event => (
+          <li key={event._id}>
+            <Link to={`/eventdetails/${event._id}`}>
+              <div>
+                <img src={`http://localhost:8000${event.imageUrl}`} alt={event.name} style={{ maxWidth: '100px' }} />
+                <span>{event.name}</span>
+              </div>
             </Link>
-          </button>
-        </div>
-      </section>
-
-      <section className="wrapper my-8">
-        <Collection
-          data={organizedEvents}
-          emptyTitle="No events have been created yet"
-          emptyStateSubtext="Go create some now"
-          collectionType="Events_Organized"
-          limit={3}
-          page={eventsPage}
-          onPageChange={handleEventPageChange}
-          // totalPages={totalEventPages}
-        />
-      </section>
-    </>
+          </li>
+        ))}
+      </ul>
+      <Link to="/eventform">
+        <button>Create New Event</button>
+      </Link>
+    </div>
   );
 };
 
