@@ -17,6 +17,7 @@ const upload = multer({ storage });
 export const createEvent = async (req, res) => {
   try {
     const { name, description, startDate, endDate, location, price, participants } = req.body;
+    const userId = req.user._id; // Récupérer l'ID de l'utilisateur connecté
 
     // Vérifiez si l'image est fournie dans la requête
     if (!req.file) {
@@ -38,7 +39,7 @@ export const createEvent = async (req, res) => {
       startDate,
       endDate,
       location,
-      organizer: req.user._id, // Utilisez l'ID de l'utilisateur connecté
+      organizer: userId, // Utilisez l'ID de l'utilisateur connecté
       imageUrl,
       price,
       participants

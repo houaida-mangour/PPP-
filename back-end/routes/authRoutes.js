@@ -12,6 +12,9 @@ router.get("/verify", verifyUser, (req, res) => {
     return res.json({ status: true, user: req.user });
 });
 
+
+router.get('/', getUsers);
+
 router.get('/users', getUsers);
 router.get('/:id', getUserById);
 
