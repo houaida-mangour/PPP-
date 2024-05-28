@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+let useridresponse= null;
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate()
+
 
   Axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
@@ -18,6 +20,8 @@ const Login = () => {
         if(response.data.status) {
             navigate('/')
         }
+        useridresponse=response.data.userId
+        console.log("this is the id",useridresponse);
     }).catch(err => {
         console.log(err)
     })
@@ -50,4 +54,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export   {Login,useridresponse};

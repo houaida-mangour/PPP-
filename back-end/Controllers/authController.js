@@ -31,11 +31,11 @@ export const login = async (req, res) => {
         return res.json({ message: "password is incorrect" });
     }
 
-    const token = jwt.sign({ username: user.username }, process.env.KEY, {
+    const token = jwt.sign({ userId: user._id }, process.env.KEY, {
         expiresIn: '24h'
     });
     res.cookie('token', token, { httpOnly: true, maxAge: 360000 });
-    return res.json({ status: true, message: "login successfully" });
+    return res.json({ status: true, message: "login successfully", userId: user._id });
 };
 
 export const getUsers = async (req, res) => {
@@ -56,6 +56,7 @@ export const getUserById = async (req, res) => {
         if (!user) { 
             return res.status(404).json({ error: 'User not found' });
         }
+
         res.status(200).json(user);
     } catch (error) {
         console.error('Error fetching user by ID:', error);
@@ -63,3 +64,4 @@ export const getUserById = async (req, res) => {
     }
 };
 
+// Ajoutez ici les autres fonctions de votre contrôleur, comme forgotPassword, resetPassword, etc.

@@ -1,4 +1,9 @@
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+
+const generateToken = (userId) => {
+    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+};
 
 export const verifyUser = async (req, res, next) => {
     try {

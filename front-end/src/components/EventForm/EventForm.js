@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useridresponse } from '../Login/Login';
 
 const EventForm = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const EventForm = () => {
       formData.append('participants', participants);
       formData.append('price', isFree ? 0 : price);
       formData.append('image', imageFile);
+      formData.append('userId', useridresponse);
 
       const token = localStorage.getItem('token');
 

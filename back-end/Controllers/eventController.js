@@ -3,6 +3,7 @@ import { User } from '../models/User.js';
 import multer from 'multer';
 import path from 'path';
 
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');
@@ -16,8 +17,7 @@ const upload = multer({ storage });
 
 export const createEvent = async (req, res) => {
   try {
-    const { name, description, startDate, endDate, location, price, participants } = req.body;
-    const userId = req.user._id; // Récupérer l'ID de l'utilisateur connecté
+    const { name, description, startDate, endDate, location, price, participants, userId } = req.body;
 
     // Vérifiez si l'image est fournie dans la requête
     if (!req.file) {
@@ -53,6 +53,7 @@ export const createEvent = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 export const getEvents = async (req, res) => {
     try {
