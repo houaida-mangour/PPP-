@@ -10,7 +10,7 @@ import "./HomePage.css";
 
 export default function HomePage() {
     return (
-        <div>
+        <div id="top">
             <Navbar />
             <div className='wrapper'>
             <Eventlist />

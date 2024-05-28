@@ -1,15 +1,21 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 export const verifyUser = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.json({ status: false, message: "no token" });
+            return res.status(401).json({ error: "No token found" });
         }
         const decoded = await jwt.verify(token, process.env.KEY);
-        req.user = decoded; 
+        req.user = decoded;
         next();
     } catch (err) {
-        return res.json(err);
+        if (err.name === 'TokenExpiredError') {
+            return res.status(401).json({ error: "Token expired" });
+        } else if (err.name === 'JsonWebTokenError') {
+            return res.status(401).json({ error: "Invalid token" });
+        } else {
+            return res.status(500).json({ error: "Internal server error" });
+        }
     }
 };

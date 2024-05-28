@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SectionsData } from './SectionsData';
-import { Link } from 'react-router-dom';
-import Axios from 'axios'; // Importer Axios
+import { useNavigate, Link } from 'react-router-dom';
+import Axios from 'axios';
 import { faBars, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
-
 import './Sections.css';
+import { SectionsData } from './SectionsData';
 
 function Sections() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [user, setUser] = useState(null); // État pour stocker les informations de l'utilisateur
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate(); 
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -28,14 +28,25 @@ function Sections() {
     }, []);
 
     useEffect(() => {
-        console.log("User state changed:", user); // Ajout d'une console.log pour voir l'état de l'utilisateur
+        console.log("User state changed:", user);
         if (!user) {
-            // Réinitialiser l'utilisateur après la déconnexion
-            setIsMenuOpen(false); // Fermer le menu si ouvert
+            setIsMenuOpen(false);
         }
     }, [user]);
 
-    // Fonction pour remplacer le bouton "Login" par le nom d'utilisateur et le bouton "Signup" par le bouton de déconnexion si l'utilisateur est connecté
+    const handleNavigation = (url) => {
+        if (url.startsWith('#')) {
+            navigate('/');
+            setTimeout(() => {
+                window.location.hash = url;
+            }, 100);
+        } else {
+            navigate(url);
+        }
+    };
+
+
+
     const getSectionsWithUser = () => {
         if (user) {
             return SectionsData.map(item => {
@@ -43,17 +54,17 @@ function Sections() {
                     return {
                         ...item,
                         title: user.username,
-                        url: '/dashboard', // ou toute autre URL appropriée pour le lien vers le tableau de bord
-                        cName: 'nav-links', // ou toute autre classe CSS appropriée
-                        icon: null // Retirer l'icône pour le nom d'utilisateur
+                        url: '/dashboard',
+                        cName: 'nav-links',
+                        icon: faUser
                     };
                 } else if (item.title === 'Signup') {
                     return {
                         ...item,
                         title: 'Logout',
-                        url: '/login', // Modifier l'URL pour la déconnexion
-                        cName: 'nav-links', // ou toute autre classe CSS appropriée
-                        icon: null // Retirer l'icône pour le bouton de déconnexion
+                        url: '/login',
+                        cName: 'nav-links',
+                        icon: null
                     };
                 }
                 return item;
@@ -70,9 +81,9 @@ function Sections() {
             <ul className='nav-items'>
                 {getSectionsWithUser().map((item, index) => (
                     <li key={index}>
-                        <Link to={item.url} className={item.cName}>
+                        <div className={item.cName} onClick={() => handleNavigation(item.url)}>
                             {item.icon && <FontAwesomeIcon icon={item.icon} />} {item.title}
-                        </Link>
+                        </div>
                     </li>
                 ))}
             </ul>

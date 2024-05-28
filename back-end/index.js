@@ -5,9 +5,13 @@ import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
+import path from 'path'; 
 
 dotenv.config();
 const app = express();
+
+// Connecter la base de données
+connectDB();
 
 // Middleware
 app.use(express.json());
@@ -16,14 +20,14 @@ app.use(cors({
     credentials: true
 }));
 app.use(cookieParser());
+
 app.use('/auth', authRoutes);
 app.use('/events', eventRoutes);
 
-// Connexion à la base de données
-connectDB();
+const uploadsPath = path.join(path.resolve(), 'uploads'); 
+app.use('/uploads', express.static(uploadsPath));
 
-// Démarrer le serveur
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
