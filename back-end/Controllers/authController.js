@@ -31,11 +31,22 @@ export const login = async (req, res) => {
         return res.json({ message: "password is incorrect" });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.KEY, {
+    const token = jwt.sign({ userId: user._id}, process.env.KEY, {
         expiresIn: '24h'
     });
     res.cookie('token', token, { httpOnly: true, maxAge: 360000 });
-    return res.json({ status: true, message: "login successfully", userId: user._id });
+    return res.json({ status: true, message: "login successfully", userId: user._id,userName: user.username  });
+};
+
+export const logout = async (req, res) => {
+    try {
+        // Supprimer le cookie contenant le token JWT
+        res.clearCookie('token');
+        return res.json({ status: true, message: "logout successfully" });
+    } catch (error) {
+        console.error('Error logging out:', error);
+        return res.status(500).json({ error: 'Unable to logout' });
+    }
 };
 
 export const getUsers = async (req, res) => {
@@ -64,4 +75,3 @@ export const getUserById = async (req, res) => {
     }
 };
 
-// Ajoutez ici les autres fonctions de votre contrôleur, comme forgotPassword, resetPassword, etc.

@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 
 const generateToken = (userId) => {
-    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '24h' });
 };
 
 export const verifyUser = async (req, res, next) => {

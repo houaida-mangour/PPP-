@@ -3,43 +3,43 @@ import { faHouseUser, faInfoCircle, faAddressBook, faCalendar, faUnlock, faUser,
 export const SectionsData = [
     {
         title: 'Home',
-        url: '/', // This might need to be adjusted based on your Home section's id
+        url: '/', 
         cName: 'nav-links',
         icon: faHouseUser, 
     },
     {
         title: 'About us',
-        url: '#AboutUs', // Ensure this matches the id in the AboutUs component
+        url: '#AboutUs',
         cName: 'nav-links',
         icon: faInfoCircle 
     },
     {
         title: 'Services',
-        url: '#work-service', // Ensure this matches the id in the Services component
+        url: '#work-service', 
         cName: 'nav-links',
         icon: faCog 
     },
     {
         title: 'Contact',
-        url: '#Contact', // Ensure this matches the id in the Contact component
+        url: '#Contact', 
         cName: 'nav-links',
         icon: faAddressBook 
     },
     {
         title: 'Events',
-        url: '/EventPage', // This will now navigate to the EventPage route
+        url: '/EventPage', 
         cName: 'nav-links',
         icon: faCalendar 
     },
     {
         title: 'Login',
-        url: '/LogIn', // Adjust based on your routing setup
+        url: '/LogIn', 
         cName: 'nav-links-mobile',
         icon: faUnlock 
     },
     {
         title: 'Signup',
-        url: '/SignUp', // Adjust based on your routing setup
+        url: '/SignUp', 
         cName: 'nav-links-mobile',
         icon: faUser 
     }   

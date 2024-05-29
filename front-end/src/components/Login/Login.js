@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 let useridresponse= null;
+let usernameresponse= null;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,11 +20,16 @@ const Login = () => {
     }).then(response => {
         if(response.data.status) {
             navigate('/')
+            localStorage.setItem('token', response.data.token);
+            usernameresponse=response.data.userName;
+            console.log("this is the username",usernameresponse);
+
         }
-        useridresponse=response.data.userId
+        useridresponse=response.data.userId;
         console.log("this is the id",useridresponse);
     }).catch(err => {
         console.log(err)
+        console.log(err.response);
     })
   };
   return (
@@ -54,4 +60,4 @@ const Login = () => {
   );
 };
 
-export   {Login,useridresponse};
+export   {Login,useridresponse,usernameresponse};

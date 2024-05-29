@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './EventCard.css'; 
 import { Link } from 'react-router-dom';
+import { MdOutlineDateRange } from "react-icons/md";
 
 
 const EventCard = ({ event, hasOrderLink, hidePrice }) => {
@@ -24,11 +25,15 @@ const EventCard = ({ event, hasOrderLink, hidePrice }) => {
             {event.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {event.description}
+          <MdOutlineDateRange />
+          {new Date(event.startDate).toLocaleDateString()}
           </Typography>
-          {!hidePrice && (
+          <Typography variant="body2" color="text.secondary">
+          {event.location}
+          </Typography>
+            {!hidePrice && (
             <Typography variant="body2" color="text.secondary">
-              Price: {event.isFree ? 'Free' : `$${event.price}`}
+              Price: {event.isFree ? 'Free' : `${event.price} DT`}
             </Typography>
           )}
         </CardContent>

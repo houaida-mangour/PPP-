@@ -60,22 +60,14 @@ export const getEvents = async (req, res) => {
     const { page = 1, limit = 6 } = req.query;
     const parsedPage = parseInt(page, 10);
     const parsedLimit = parseInt(limit, 10);
-
-    // Vérifier si les paramètres sont valides
     if (isNaN(parsedPage) || isNaN(parsedLimit) || parsedPage <= 0 || parsedLimit <= 0) {
       return res.status(400).json({ error: 'Invalid pagination parameters' });
     }
-
-    // Récupérer les événements avec pagination
     const events = await Event.find()
       .skip((parsedPage - 1) * parsedLimit)
       .limit(parsedLimit);
-
-    // Compter le nombre total d'événements
     const totalEvents = await Event.countDocuments();
     const totalPages = Math.ceil(totalEvents / parsedLimit);
-
-    // Envoyer la réponse avec les événements et les informations de pagination
     res.status(200).json({
       events,
       totalPages,
@@ -115,9 +107,6 @@ export const getEventsByUser = async (req, res) => {
 };
 
 
-
-
-// Méthode pour mettre à jour un événement
 export const updateEvent = async (req, res) => {
   try {
       // Vérifiez si l'utilisateur est authentifié
@@ -163,42 +152,34 @@ export const updateEvent = async (req, res) => {
 
 
 
-// Méthode pour supprimer un événement
 export const deleteEvent = async (req, res) => {
   try {
-      // Vérifiez si l'utilisateur est authentifié
-      if (!req.user) {
-          return res.status(401).json({ error: 'Unauthorized' });
-      }
+    if (!req.user) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
 
-      // Récupérez l'ID de l'événement à supprimer depuis les paramètres de la requête
-      const eventId = req.params.id;
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId);
 
-      // Recherchez l'événement dans la base de données
-      const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
 
-      // Vérifiez si l'événement existe
-      if (!event) {
-          return res.status(404).json({ error: 'Event not found' });
-      }
+    if (!event.organizer || event.organizer.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ error: 'Unauthorized' });
+    }
 
-      // Vérifiez si l'utilisateur est l'organisateur de l'événement
-      if (event.organizer.toString() !== req.user._id.toString()) {
-          return res.status(403).json({ error: 'Unauthorized' });
-      }
-
-      // Supprimez l'événement de la base de données
-      await event.remove();
-
-      // Renvoyez la réponse indiquant que l'événement a été supprimé avec succès
-      res.status(200).json({ message: 'Event deleted successfully' });
+    await event.remove();
+    res.status(200).json({ message: 'Event deleted successfully' });
   } catch (error) {
-      console.error('Error deleting event:', error);
-      res.status(500).json({ error: 'Unable to delete event' });
+    console.error('Error deleting event:', error.message, error.stack);
+    res.status(500).json({ error: 'Unable to delete event', details: error.message });
   }
 };
 
-//Find the events a user has participated in and those the user has organized
+
+
+
 export const getEventsByUserId = async (req, res) => {
   try {
       const { userId } = req.params;

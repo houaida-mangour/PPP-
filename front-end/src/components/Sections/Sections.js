@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { faBars, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import './Sections.css';
 import { SectionsData } from './SectionsData';
+import { usernameresponse } from '../Login/Login';
 
 function Sections() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,7 +36,20 @@ function Sections() {
     }, [user]);
 
     const handleNavigation = (url) => {
-        if (url.startsWith('#')) {
+        if (url === '/logout') {
+            // Déconnexion de l'utilisateur
+            Axios.post("http://localhost:8000/auth/logout")
+                .then(response => {
+                    if (response.data.status) {
+                        localStorage.removeItem('token');
+                        setUser(null);
+                        navigate('/login');
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } else if (url.startsWith('#')) {
             navigate('/');
             setTimeout(() => {
                 window.location.hash = url;
@@ -53,7 +67,7 @@ function Sections() {
                 if (item.title === 'Login') {
                     return {
                         ...item,
-                        title: user.username,
+                        title: usernameresponse,
                         url: '/dashboard',
                         cName: 'nav-links',
                         icon: faUser
