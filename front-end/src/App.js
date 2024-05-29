@@ -8,10 +8,9 @@ import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
 import Dashboard from './pages/Dashboard/Dashboard';
 import EventForm from './components/EventForm/EventForm.js';
 import UpdateEvent from './components/EventForm/UpdateEvent.js';
-
 import EventPage from './pages/EventPage/EventPage.js';
-
 import EventDetails from './components/EventDetails/EventDetails.js';
+import ParticipantForm from './components/ParticipantForm/ParticipantForm.js'
 
 function App() {
   return (
@@ -28,6 +27,7 @@ function App() {
           <Route path="/eventpage" element={<EventPage />} />
           <Route path="/eventdetails/:id" element={<EventDetails />} />
           <Route path="/updateevent/:id" element={<UpdateEvent />} />
+          <Route path="/participateform" element={<ParticipantForm />} />
         </Routes>
       </BrowserRouter>
     </div>

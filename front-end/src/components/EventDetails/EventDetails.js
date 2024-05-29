@@ -55,7 +55,7 @@ const EventDetails = () => {
             <GiPositionMarker /> {event && event.location}
           </p>
           <p>
-            <IoIosPricetags /> Price: {event && event.isFree ? 'Free' : `$${event.price}`}
+            <IoIosPricetags /> Price: {event && event.isFree ? 'Free' : `${event.price} DT`}
           </p>
           {/* Afficher d'autres détails de l'événement ici */}
           <div className="mt-7 flex flex-row items-center gap-6">
