@@ -136,25 +136,21 @@ export const updateEvent = async (req, res) => {
 
 
 
-
-
-
-
 export const deleteEvent = async (req, res) => {
   try {
-    const { eventId } = req.params;
-    const event = await Event.findById(eventId);
-    if (!event) {
+    const eventId = req.params.id; // Récupérer l'ID de l'événement à supprimer
+    const deletedEvent = await Event.findByIdAndDelete(eventId); // Supprimer l'événement par son ID
+
+    if (!deletedEvent) {
       return res.status(404).json({ error: 'Event not found' });
     }
-    await event.remove();
-    res.status(200).json({ message: 'Event deleted successfully' });
+
+    res.status(200).json({ message: 'Event deleted successfully', deletedEvent });
   } catch (error) {
     console.error('Error deleting event:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 
 export const getEventsByUserId = async (req, res) => {
@@ -226,6 +222,36 @@ export const getUserParticipatedEvents = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
+export const getEventParticipantsWithUsers = async (req, res) => {
+  try {
+    const eventId = req.params.id; 
+    const participants = await Participant.find({ participantEventid: eventId }).populate('participantid');
+
+    if (!participants.length) {
+      return res.status(404).json({ message: 'No participants found for this event' });
+    }
+
+    const participantsWithUsers = participants.map(participant => ({
+      participantId: participant._id,
+      food: participant.food,
+      specialRequest: participant.specialRequest,
+      user: {
+        userId: participant.participantid._id,
+        name: participant.participantid.name, 
+        email: participant.participantid.email
+      }
+    }));
+
+    res.status(200).json(participantsWithUsers);
+  } catch (error) {
+    console.error('Error fetching event participants with users:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 
 export { upload };

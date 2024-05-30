@@ -65,7 +65,7 @@ const Dashboard = () => {
       <ul>
         {userEvents.map(event => (
           <li key={event._id}>
-            <Link to={`/eventdetails/${event._id}`}>
+            <Link to={`/participantspage/${event._id}`}>
               <div>
                 <img src={`http://localhost:8000${event.imageUrl}`} alt={event.name} style={{ maxWidth: '100px' }} />
                 <span>{event.name}</span>
