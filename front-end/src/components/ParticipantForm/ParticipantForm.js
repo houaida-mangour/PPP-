@@ -1,18 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useridresponse } from '../Login/Login';
+import { eventidresponse } from '../Evenements/EventCard';
 
 const ParticipantForm = () => {
-  const handleSubmit = () => {
-    // Logique de soumission du formulaire de participation
+  const navigate = useNavigate();
+
+  const [food, setFood] = useState('');
+  const [selectRequest, setSelectRequest] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const token = localStorage.getItem('token');
+
+      const participantData = {
+        food,
+        specialRequest: selectRequest,
+        userId: useridresponse,
+        eventId: eventidresponse,
+      };
+
+      console.log('les donnees sont: ',participantData);
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      };
+
+      const uploadResponse = await axios.post('http://localhost:8000/events/participate', participantData, config);
+
+      console.log('Upload Response:', uploadResponse.data);
+
+      if (uploadResponse.data) {
+        navigate(`/eventdetails/${eventidresponse}`);
+      } else {
+        console.error('Error adding participant');
+      }
+
+      setFood('');
+      setSelectRequest('');
+
+    } catch (error) {
+      console.error('Error participating in event:', error);
+    }
   };
 
   return (
-    <div>
-      <h1>Formulaire de participation</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Champs du formulaire de participation */}
-        <button type="submit">Envoyer</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <textarea value={food} onChange={(e) => setFood(e.target.value)} placeholder="Food" required></textarea>
+      <textarea value={selectRequest} onChange={(e) => setSelectRequest(e.target.value)} placeholder="Select Request" required></textarea>
+      <button type="submit">Submit Form</button>
+    </form>
   );
 };
 

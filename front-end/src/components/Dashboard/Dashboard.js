@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [userEvents, setUserEvents] = useState([]);
+  const [participatedEvents, setParticipatedEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +23,22 @@ const Dashboard = () => {
       }
     };
 
+    const fetchParticipatedEvents = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:8000/participants/user/${useridresponse}/participated`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setParticipatedEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching participated events:', error);
+      }
+    };
+
     fetchUserEvents();
+    fetchParticipatedEvents();
   }, []);
 
   const handleUpdateEvent = (eventId) => {
@@ -37,16 +53,11 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // Remove the deleted event from the userEvents state
-      const updatedEvents = userEvents.filter(event => event._id !== eventId);
-      setUserEvents(updatedEvents);
+      setUserEvents(userEvents.filter(event => event._id !== eventId));
     } catch (error) {
-      console.error('Error deleting event:', error.message, error.response?.data);
-      // Handle error gracefully
-      alert('Failed to delete event. Please try again later.');
+      console.error('Error deleting event:', error);
     }
   };
-  
 
   return (
     <div>
@@ -65,6 +76,21 @@ const Dashboard = () => {
           </li>
         ))}
       </ul>
+
+      <h2>Participated Events</h2>
+      <ul>
+        {participatedEvents.map(participation => (
+          <li key={participation.participantEventid._id}>
+            <Link to={`/eventdetails/${participation.participantEventid._id}`}>
+              <div>
+                <img src={`http://localhost:8000${participation.participantEventid.imageUrl}`} alt={participation.participantEventid.name} style={{ maxWidth: '100px' }} />
+                <span>{participation.participantEventid.name}</span>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+
       <Link to="/eventform">
         <button>Create New Event</button>
       </Link>

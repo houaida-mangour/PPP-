@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { faBars, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import './Sections.css';
@@ -35,20 +35,37 @@ function Sections() {
         }
     }, [user]);
 
+    const handleLogout = () => {
+        Axios.post("http://localhost:8000/auth/logout")
+            .then(response => {
+                if (response.data.status) {
+                    localStorage.removeItem('token');
+                    setUser(null);
+                    navigate('/login');
+                } else {
+                    console.log("Logout failed");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     const handleNavigation = (url) => {
         if (url === '/logout') {
-            // Déconnexion de l'utilisateur
-            Axios.post("http://localhost:8000/auth/logout")
-                .then(response => {
-                    if (response.data.status) {
-                        localStorage.removeItem('token');
-                        setUser(null);
-                        navigate('/login');
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            if (user) {
+                Axios.post("http://localhost:8000/auth/logout")
+                    .then(response => {
+                        if (response.data.status) {
+                            localStorage.removeItem('token');
+                            setUser(null);
+                            navigate('/login');
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
         } else if (url.startsWith('#')) {
             navigate('/');
             setTimeout(() => {
@@ -58,8 +75,7 @@ function Sections() {
             navigate(url);
         }
     };
-
-
+    
 
     const getSectionsWithUser = () => {
         if (user) {
@@ -76,7 +92,7 @@ function Sections() {
                     return {
                         ...item,
                         title: 'Logout',
-                        url: '/login',
+                        url: '/logout', // Change URL to trigger logout action
                         cName: 'nav-links',
                         icon: null
                     };

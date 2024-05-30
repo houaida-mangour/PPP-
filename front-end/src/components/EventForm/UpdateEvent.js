@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const UpdateEvent = () => {
-  const { id } = useParams();
-  const [event, setEvent] = useState({});
+const UpdateEventForm = () => {
   const navigate = useNavigate();
+  const { id } = useParams(); 
+
+  const [eventData, setEventData] = useState({
+    name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    location: '',
+    participants: '',
+    price: 0,
+    imageFile: null,
+  });
 
   useEffect(() => {
-    const fetchEvent = async () => {
+    const fetchEventData = async () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(`http://localhost:8000/events/${id}`, {
@@ -16,36 +26,53 @@ const UpdateEvent = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setEvent(response.data);
+        setEventData({
+          ...response.data,
+          imageFile: null, // Initially no new image
+        });
       } catch (error) {
-        console.error('Error fetching event:', error);
+        console.error('Error fetching event data:', error);
       }
     };
 
-    fetchEvent();
+    if (id) {
+      fetchEventData();
+    }
   }, [id]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEvent({
-      ...event,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:8000/events/${id}`, event, {
+      const formData = new FormData();
+      formData.append('eventId', id);
+      for (const key in eventData) {
+        if (key === 'imageFile' && eventData.imageFile) {
+          formData.append('image', eventData.imageFile);
+        } else {
+          formData.append(key, eventData[key]);
+        }
+      }
+      const response = await axios.put(`http://localhost:8000/events/${id}`, formData, {
         headers: {
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate('/dashboard');
+      console.log('Update Response:', response);
+      navigate(`/eventdetails/${id}`);
     } catch (error) {
       console.error('Error updating event:', error);
     }
+  };
+
+  const handleChange = (event) => {
+    const { name, value, type, files } = event.target;
+    const newValue = type === 'file' ? files[0] : value;
+    setEventData((prevData) => ({
+      ...prevData,
+      [name]: newValue,
+    }));
   };
 
   return (
@@ -55,51 +82,53 @@ const UpdateEvent = () => {
         <input
           type="text"
           name="name"
-          value={event.name || ''}
+          value={eventData.name}
           onChange={handleChange}
           placeholder="Event Name"
         />
-        <input
-          type="text"
+        <textarea
           name="description"
-          value={event.description || ''}
+          value={eventData.description}
           onChange={handleChange}
           placeholder="Event Description"
         />
         <input
           type="date"
           name="startDate"
-          value={event.startDate || ''}
+          value={eventData.startDate}
           onChange={handleChange}
-          placeholder="Start Date"
         />
         <input
           type="date"
           name="endDate"
-          value={event.endDate || ''}
+          value={eventData.endDate}
           onChange={handleChange}
-          placeholder="End Date"
         />
         <input
           type="text"
           name="location"
-          value={event.location || ''}
+          value={eventData.location}
           onChange={handleChange}
           placeholder="Location"
         />
         <input
           type="number"
           name="price"
-          value={event.price || ''}
+          value={eventData.price}
           onChange={handleChange}
           placeholder="Price"
         />
         <input
           type="text"
           name="participants"
-          value={event.participants || ''}
+          value={eventData.participants}
           onChange={handleChange}
           placeholder="Participants"
+        />
+        <input
+          type="file"
+          name="imageFile"
+          onChange={handleChange}
         />
         <button type="submit">Update Event</button>
       </form>
@@ -107,4 +136,4 @@ const UpdateEvent = () => {
   );
 };
 
-export default UpdateEvent;
+export default UpdateEventForm;

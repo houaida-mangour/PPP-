@@ -35,12 +35,11 @@ export const login = async (req, res) => {
         expiresIn: '24h'
     });
     res.cookie('token', token, { httpOnly: true, maxAge: 360000 });
-    return res.json({ status: true, message: "login successfully", userId: user._id,userName: user.username  });
+    return res.json({ status: true, message: "login successfully", userId: user._id,userName: user.username , token: token });
 };
 
 export const logout = async (req, res) => {
     try {
-        // Supprimer le cookie contenant le token JWT
         res.clearCookie('token');
         return res.json({ status: true, message: "logout successfully" });
     } catch (error) {
@@ -74,4 +73,5 @@ export const getUserById = async (req, res) => {
         res.status(500).json({ error: 'Unable to fetch user' });
     }
 };
+
 

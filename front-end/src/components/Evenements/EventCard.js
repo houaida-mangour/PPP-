@@ -10,6 +10,8 @@ import { MdOutlineDateRange } from 'react-icons/md';
 import './EventCard.css';
 import { useridresponse } from '../Login/Login';
 
+let eventidresponse= null;
+
 const EventCard = ({ event, hidePrice }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const EventCard = ({ event, hidePrice }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    if (useridresponse !=null) {
+    if (useridresponse != null) {
       console.log("Token and user ID found:", token, userId);
       setIsLoggedIn(true);
     } else {
@@ -26,9 +28,12 @@ const EventCard = ({ event, hidePrice }) => {
     }
   }, []);
 
-  const handleParticipateClick = () => {
+  const handleParticipateClick = (eventId) => {
     if (isLoggedIn) {
-      navigate('/participateform');
+      navigate(`/participateform/${eventId}`); 
+      eventidresponse = eventId;
+      console.log('le id de event ',eventidresponse);
+
     } else {
       navigate('/login');
     }
@@ -63,11 +68,11 @@ const EventCard = ({ event, hidePrice }) => {
           <Button>
             <Link to={`/eventdetails/${event._id}`}>Learn More</Link>
           </Button>
-          <Button onClick={handleParticipateClick}>Participate</Button>
+          <Button onClick={() => handleParticipateClick(event._id)}>Participate</Button> {/* Utilisez une fonction fléchée pour passer l'ID de l'événement */}
         </CardActions>
       </Card>
     </div>
   );
 };
 
-export default EventCard;
+export {EventCard,eventidresponse};

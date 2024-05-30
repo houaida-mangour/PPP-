@@ -1,5 +1,5 @@
 import React from 'react';
-import EventCard from './EventCard';
+import {EventCard} from './EventCard';
 import Pagination from './Pagination';
 
 const Collection = ({

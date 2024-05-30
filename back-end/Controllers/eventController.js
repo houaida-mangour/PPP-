@@ -2,7 +2,7 @@ import { Event } from '../models/Events.js';
 import { User } from '../models/User.js';
 import multer from 'multer';
 import path from 'path';
-
+import Participant from '../models/Participant.js'; 
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -18,28 +18,20 @@ const upload = multer({ storage });
 export const createEvent = async (req, res) => {
   try {
     const { name, description, startDate, endDate, location, price, participants, userId } = req.body;
-
-    // Vérifiez si l'image est fournie dans la requête
     if (!req.file) {
       return res.status(400).json({ error: 'Image is required' });
     }
-
-    // Vérifiez les champs requis
     if (!name || !description || !startDate || !endDate || !location || price === undefined || !participants) {
       return res.status(400).json({ error: 'All fields are required' });
     }
-
-    // Créez l'URL de l'image en utilisant le chemin de l'image téléchargée
     const imageUrl = `/uploads/${req.file.filename}`;
-
-    // Utilisez l'ID de l'utilisateur connecté comme ID de l'organisateur
     const newEvent = new Event({
       name,
       description,
       startDate,
       endDate,
       location,
-      organizer: userId, // Utilisez l'ID de l'utilisateur connecté
+      organizer: userId, 
       imageUrl,
       price,
       participants
@@ -109,74 +101,59 @@ export const getEventsByUser = async (req, res) => {
 
 export const updateEvent = async (req, res) => {
   try {
-      // Vérifiez si l'utilisateur est authentifié
-      if (!req.user) {
-          return res.status(401).json({ error: 'Unauthorized' });
+    const { eventId, name, description, startDate, endDate, location, price, participants} = req.body;
+    if (!eventId) {
+      return res.status(400).json({ error: 'Event ID is required' });
+    }
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+    if (name) event.name = name;
+    if (description) event.description = description;
+    if (startDate) event.startDate = startDate;
+    if (endDate) event.endDate = endDate;
+    if (location) event.location = location;
+    if (price !== undefined) event.price = price;
+    if (participants !== undefined) event.participants = participants;
+    if (req.file) {
+      if (event.imageUrl) {
+        const oldImagePath = path.join(path.resolve(), event.imageUrl);
+        fs.unlink(oldImagePath, (err) => {
+          if (err) console.error('Error deleting old image:', err.message);
+        });
       }
+      event.imageUrl = `/uploads/${req.file.filename}`;
+    }
 
-      // Récupérez l'ID de l'événement à mettre à jour depuis les paramètres de la requête
-      const eventId = req.params.id;
-
-      // Recherchez l'événement dans la base de données
-      const event = await Event.findById(eventId);
-
-      // Vérifiez si l'événement existe
-      if (!event) {
-          return res.status(404).json({ error: 'Event not found' });
-      }
-
-      // Vérifiez si l'utilisateur est l'organisateur de l'événement
-      if (event.organizer.toString() !== req.user._id.toString()) {
-          return res.status(403).json({ error: 'Unauthorized' });
-      }
-
-      // Mettez à jour les propriétés de l'événement avec les nouvelles valeurs
-      event.name = req.body.name || event.name;
-      event.description = req.body.description || event.description;
-      event.startDate = req.body.startDate || event.startDate;
-      event.endDate = req.body.endDate || event.endDate;
-      event.location = req.body.location || event.location;
-      event.participants = req.body.participants || event.participants;
-      event.price = req.body.price || event.price;
-
-      // Enregistrez les modifications de l'événement dans la base de données
-      await event.save();
-
-      // Renvoyez la réponse avec l'événement mis à jour
-      res.status(200).json({ event });
+    const updatedEvent = await event.save();
+    res.status(200).json(updatedEvent);
   } catch (error) {
-      console.error('Error updating event:', error);
-      res.status(500).json({ error: 'Unable to update event' });
+    console.error('Error updating event:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
+
 
 
 
 export const deleteEvent = async (req, res) => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
-    const eventId = req.params.id;
+    const { eventId } = req.params;
     const event = await Event.findById(eventId);
-
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
-
-    if (!event.organizer || event.organizer.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ error: 'Unauthorized' });
-    }
-
     await event.remove();
     res.status(200).json({ message: 'Event deleted successfully' });
   } catch (error) {
-    console.error('Error deleting event:', error.message, error.stack);
-    res.status(500).json({ error: 'Unable to delete event', details: error.message });
+    console.error('Error deleting event:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 
 
@@ -204,33 +181,51 @@ export const getEventsByUserId = async (req, res) => {
 
 
 
-//A user participating in an event:
 export const participateInEvent = async (req, res) => {
   try {
-      const { eventId, userId } = req.body;
+    const { food, specialRequest, userId, eventId } = req.body;
 
-      // Find the event by ID
-      const event = await Event.findById(eventId);
+    // Vérifiez les champs requis
+    if (!food || !specialRequest || !userId || !eventId) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
 
-      if (!event) {
-          return res.status(404).json({ message: 'Event not found' });
-      }
+    // Vérifiez si l'utilisateur participe déjà à cet événement
+    const existingParticipant = await Participant.findOne({ participantid: userId, participantEventid: eventId });
+    if (existingParticipant) {
+      return res.status(400).json({ error: 'User already registered for this event' });
+    }
 
-      // Add the user to the participants array if not already added
-      if (!event.participants.includes(userId)) {
-          event.participants.push(userId);
-          await event.save();
-
-          // Update the user's participantInEvents array
-          await User.findByIdAndUpdate(userId, { $push: { participantInEvents: eventId } });
-
-          res.status(200).json({ message: 'User successfully added to event participants' });
-      } else {
-          res.status(400).json({ message: 'User is already a participant in this event' });
-      }
+    // Créez une nouvelle instance de Participant avec les données de la requête
+    const newParticipant = new Participant({
+      food,
+      specialRequest,
+      participantid: userId,
+      participantEventid: eventId
+    });
+    const savedParticipant = await newParticipant.save();
+    res.status(201).json(savedParticipant);
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    console.error('Error creating participant:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+export const getUserParticipatedEvents = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const participatedEvents = await Participant.find({ participantid: userId }).populate('participantEventid');
+    
+    if (!participatedEvents) {
+      return res.status(404).json({ message: 'No participated events found for this user' });
+    }
+
+    res.status(200).json(participatedEvents);
+  } catch (error) {
+    console.error('Error fetching participated events:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 export { upload };

@@ -12,26 +12,29 @@ const Login = () => {
 
 
   Axios.defaults.withCredentials = true;
-  const handleSubmit = (e) => {
+  
+   const handleSubmit = (e) => {
     e.preventDefault();
     Axios.post("http://localhost:8000/auth/Login", {
-      email,
-      password,
+        email,
+        password,
     }).then(response => {
         if(response.data.status) {
-            navigate('/')
-            localStorage.setItem('token', response.data.token);
-            usernameresponse=response.data.userName;
-            console.log("this is the username",usernameresponse);
-
+            localStorage.setItem('token', response.data.token); 
+            console.log('le token',response.data.token)
+            navigate('/');
+            usernameresponse = response.data.userName;
+            console.log("this is the username", usernameresponse);
         }
-        useridresponse=response.data.userId;
-        console.log("this is the id",useridresponse);
+        useridresponse = response.data.userId;
+        console.log("this is the id", useridresponse);
     }).catch(err => {
         console.log(err)
         console.log(err.response);
     })
-  };
+};
+
+
   return (
     <div className="sign-up-container">
       <form className="sign-up-form" onSubmit={handleSubmit}>

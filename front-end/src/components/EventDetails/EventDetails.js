@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import "./EventDetails.css";
 import { GiPositionMarker } from "react-icons/gi";
 import { MdOutlineDateRange } from "react-icons/md";
 import { IoIosPricetags } from "react-icons/io";
+import { useridresponse } from '../Login/Login';
+let eventidresponse= null;
+
 
 const EventDetails = () => {
   const { id } = useParams();
+  eventidresponse=id;
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+
+    if (useridresponse!=null) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -28,6 +43,14 @@ const EventDetails = () => {
 
     fetchEvent();
   }, [id]);
+
+  const handleParticipateClick = () => {
+    if (isLoggedIn) {
+      navigate('/participateform');
+    } else {
+      navigate('/login');
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -57,9 +80,8 @@ const EventDetails = () => {
           <p>
             <IoIosPricetags /> Price: {event && event.isFree ? 'Free' : `${event.price} DT`}
           </p>
-          {/* Afficher d'autres détails de l'événement ici */}
           <div className="mt-7 flex flex-row items-center gap-6">
-            <button className="button-participate">Participate</button>
+            <button className="button-participate" onClick={handleParticipateClick}>Participate</button>
           </div>
         </div>
       </div>
@@ -67,4 +89,4 @@ const EventDetails = () => {
   );
 };
 
-export default EventDetails;
+export {EventDetails,eventidresponse};

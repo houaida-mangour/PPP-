@@ -4,6 +4,8 @@ import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
+import participantRoutes from './routes/ParticipantRoutes.js';
+
 import path from 'path'; 
 import cors from 'cors'; 
 
@@ -22,6 +24,8 @@ app.use(cors({
 
 app.use('/auth', authRoutes);
 app.use('/events', eventRoutes);
+app.use('/participants', participantRoutes);
+
 
 const uploadsPath = path.join(path.resolve(), 'uploads'); 
 app.use('/uploads', express.static(uploadsPath));
