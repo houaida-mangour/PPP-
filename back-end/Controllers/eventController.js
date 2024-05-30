@@ -240,7 +240,7 @@ export const getEventParticipantsWithUsers = async (req, res) => {
       specialRequest: participant.specialRequest,
       user: {
         userId: participant.participantid._id,
-        name: participant.participantid.username, 
+        username: participant.participantid.username, 
         email: participant.participantid.email
       }
     }));

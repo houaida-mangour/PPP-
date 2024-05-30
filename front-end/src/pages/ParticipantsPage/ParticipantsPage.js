@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './ParticipantPage.css'; 
+import './ParticipantPage.css';
 
 const ParticipantList = () => {
   const { id } = useParams();
+  const [eventName, setEventName] = useState('');
   const [participants, setParticipants] = useState([]);
+
+  useEffect(() => {
+    const fetchEventDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/events/${id}`);
+        setEventName(response.data.name); 
+      } catch (error) {
+        console.error('Error fetching event details:', error);
+      }
+    };
+
+    fetchEventDetails();
+  }, [id]);
 
   useEffect(() => {
     const fetchParticipants = async () => {
@@ -23,11 +37,11 @@ const ParticipantList = () => {
 
   return (
     <div className="participant-list">
-      <h2>Participants for Event {id}</h2>
+      <h2>Participants for Event {eventName}</h2>
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Username</th>
             <th>Email</th>
             <th>Food Request</th>
             <th>Special Request</th>
