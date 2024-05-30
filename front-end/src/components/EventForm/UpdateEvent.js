@@ -77,7 +77,6 @@ const UpdateEventForm = () => {
 
   return (
     <div>
-      <h2>Update Event</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

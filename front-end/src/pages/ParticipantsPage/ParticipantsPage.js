@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import './ParticipantPage.css'; 
 
 const ParticipantList = () => {
   const { id } = useParams();
@@ -22,18 +22,28 @@ const ParticipantList = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="participant-list">
       <h2>Participants for Event {id}</h2>
-      <ul>
-        {participants.map(participant => (
-          <li key={participant.participantId}>
-            <p>Name: {participant.user.name}</p>
-            <p>Email: {participant.user.email}</p>
-            <p>Food request: {participant.food}</p>
-            <p>Special Request: {participant.specialRequest}</p>
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Food Request</th>
+            <th>Special Request</th>
+          </tr>
+        </thead>
+        <tbody>
+          {participants.map(participant => (
+            <tr key={participant.participantId}>
+              <td>{participant.user.username}</td>
+              <td>{participant.user.email}</td>
+              <td>{participant.food}</td>
+              <td>{participant.specialRequest}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
