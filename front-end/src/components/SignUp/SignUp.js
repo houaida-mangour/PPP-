@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import logo from "./logos.png";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -27,7 +28,13 @@ const Signup = () => {
   return (
     <div className="sign-up-container">
       <form className="sign-up-form" onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
+        <div className="logo-container">
+        <a href="http://localhost:3000/">
+          <div className="logo-container">
+            <img src={logo} alt="Website Logo" />
+          </div>
+        </a>
+        <h2 style={{ fontSize: "24px", color: "#c86700", marginBottom: "20px", textAlign: "center" }}>Sign Up</h2>
         <label htmlFor="username">Username:</label>
         <input
           type="text"
@@ -52,8 +59,10 @@ const Signup = () => {
 
         <button type="submit">Sign Up</button>
         <p>Have an Account? <Link to="/Login">Login</Link></p> 
+      </div>
       </form>
     </div>
+    
   );
 };
 

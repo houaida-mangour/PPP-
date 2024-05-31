@@ -1,0 +1,73 @@
+
+.profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff4dc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.profile-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #d18100;
+}
+
+/* Champ de profil */
+.profile-field {
+    margin-bottom: 15px;
+}
+
+/* Label des champs */
+.profile-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Valeur des champs (quand non édité) */
+.profile-value {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #333;
+}
+
+/* Champ de saisie */
+.profile-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Bouton */
+.profile-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #d18100;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+.profile-button:hover {
+    background-color: #ffa109;
+}
+
+.profile-field.editing {
+    margin-bottom: 20px;
+}
+

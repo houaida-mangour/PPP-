@@ -5,7 +5,6 @@ import SignUpPage from './pages/SignUpPage/SignUpPage.js';
 import LoginPage from './pages/LoginPage/LoginPage.js';
 import ForgotPassword from './pages/ForgotPassworf/ForgotPassword.js';
 import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
-import Dashboard from './pages/Dashboard/Dashboard.js';
 import Dashboard2 from './pages/Dashboard/Dashboard2.js';
 import EventForm from './components/EventForm/EventForm.js';
 import UpdateEvent from './components/EventForm/UpdateEvent.js';
@@ -24,7 +23,6 @@ function App() {
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/resetPassword/:token" element={<ResetPassword />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/eventform" element={<EventForm />} />
           <Route path="/eventpage" element={<EventPage />} />
           <Route path="/eventdetails/:id" element={<EventDetails />} />

@@ -1,5 +1,5 @@
 import express from "express";
-import { signUp, login, getUsers, getUserById, logout } from "../Controllers/authController.js";
+import { signUp, login, getUsers, getUserById, logout, updateUser } from "../Controllers/authController.js";
 import { verifyUser } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
@@ -16,14 +16,9 @@ router.get("/verify", verifyUser, (req, res) => {
 
 
 router.get('/', getUsers);
-
 router.get('/users', getUsers);
 router.get('/:id', getUserById);
-
-router.get('/logout', (req, res) => {
-    res.clearCookie('token');
-    return res.json({ status: true });
-});
+router.put('/update/:id', updateUser);
 
 
 export default router;

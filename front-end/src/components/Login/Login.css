@@ -1,0 +1,22 @@
+.sign-up-form {
+    text-align: center; /* Center align the form content */
+  }
+  
+  .logo-container {
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .logo-container img {
+    width: 10px;
+    height: 10px;
+    border-radius: 30%;
+
+}
+
+ h2 {
+    font-size: 20px; 
+    color: #c86700; 
+    margin-bottom: 20px; 
+    text-align: center; 
+  }
+  

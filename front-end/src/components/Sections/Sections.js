@@ -84,7 +84,7 @@ function Sections() {
                     return {
                         ...item,
                         title: usernameresponse,
-                        url: '/dashboard2',
+                        url: '/dashboard2/profil',
                         cName: 'nav-links',
                         icon: faUser
                     };

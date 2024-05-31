@@ -84,13 +84,8 @@ export const getEventById = async (req, res) => {
 
 export const getEventsByUser = async (req, res) => {
   try {
-    // Récupérer l'ID utilisateur à partir des paramètres de requête
     const userId = req.params.userId;
-
-    // Récupérer les événements associés à l'ID utilisateur
     const events = await Event.find({ organizer: userId });
-
-    // Renvoyer les événements à l'utilisateur
     res.status(200).json({ events });
   } catch (error) {
     console.error('Error fetching user events:', error);
@@ -133,7 +128,6 @@ export const updateEvent = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 
 export const deleteEvent = async (req, res) => {
