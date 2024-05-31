@@ -5,7 +5,8 @@ import SignUpPage from './pages/SignUpPage/SignUpPage.js';
 import LoginPage from './pages/LoginPage/LoginPage.js';
 import ForgotPassword from './pages/ForgotPassworf/ForgotPassword.js';
 import ResetPassword from './pages/ResetPasswordPage/ResetPassword';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard.js';
+import Dashboard2 from './pages/Dashboard/Dashboard2.js';
 import EventForm from './components/EventForm/EventForm.js';
 import UpdateEvent from './components/EventForm/UpdateEvent.js';
 import EventPage from './pages/EventPage/EventPage.js';
@@ -30,6 +31,8 @@ function App() {
           <Route path="/updateevent/:id" element={<UpdateEvent />} />
           <Route path="/participateform/:id" element={<ParticipantForm />} />
           <Route path="/participantspage/:id" element={<ParticipantsPage />} />
+          <Route path="/dashboard2/*" element={<Dashboard2 />} />
+
 
         </Routes>
       </BrowserRouter>

@@ -84,7 +84,7 @@ function Sections() {
                     return {
                         ...item,
                         title: usernameresponse,
-                        url: '/dashboard',
+                        url: '/dashboard2',
                         cName: 'nav-links',
                         icon: faUser
                     };
@@ -92,7 +92,7 @@ function Sections() {
                     return {
                         ...item,
                         title: 'Logout',
-                        url: '/logout', // Change URL to trigger logout action
+                        url: '/logout', 
                         cName: 'nav-links',
                         icon: null
                     };
