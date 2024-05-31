@@ -192,6 +192,25 @@ export const participateInEvent = async (req, res) => {
       return res.status(400).json({ error: 'User already registered for this event' });
     }
 
+     // Trouver l'événement par son ID
+     const event = await Event.findById(eventId);
+     if (!event) {
+       return res.status(404).json({ error: 'Event not found' });
+     }
+ 
+     // Vérifier si la date de début de l'événement est passée
+     const now = new Date();
+     if (new Date(event.startDate) < now) {
+       return res.status(400).json({ error: 'Cannot participate, event has already started' });
+     }
+ 
+     // Compter le nombre actuel de participants
+     const participantCount = await Participant.countDocuments({ participantEventid: eventId });
+     if (participantCount >= event.participants) {
+       return res.status(400).json({ error: 'Cannot participate, event is full' });
+     }
+ 
+
     // Créez une nouvelle instance de Participant avec les données de la requête
     const newParticipant = new Participant({
       food,

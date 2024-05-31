@@ -1,0 +1,10 @@
+.Toastify__toast-container {
+    z-index: 9999;
+  }
+  
+  .Toastify__toast {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  
+ 
