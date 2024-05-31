@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useridresponse } from '../Login2/Login';
+import { useridresponse } from '../../components/Login2/Login';
 import { Link } from 'react-router-dom';
 
-const Dashboard = () => {
+const CreatedEvents = () => {
   const [userEvents, setUserEvents] = useState([]);
 
   useEffect(() => {
@@ -39,11 +39,9 @@ const Dashboard = () => {
           </li>
         ))}
       </ul>
-      <Link to="/eventform">
-        <button>Create New Event</button>
-      </Link>
+     
     </div>
   );
 };
 
-export default Dashboard;
+export default CreatedEvents ;

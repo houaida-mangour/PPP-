@@ -18,6 +18,7 @@ function Sections() {
     useEffect(() => {
         Axios.get("http://localhost:8000/auth/verify")
             .then(response => {
+                console.log("hi" , response.data)
                 if (response.data.status) {
                     setUser(response.data.user);
                 }
@@ -54,7 +55,7 @@ function Sections() {
                     return {
                         ...item,
                         title: user.username,
-                        url: '/dashboard',
+                        url: '/dashboard2',
                         cName: 'nav-links',
                         icon: faUser
                     };
@@ -62,7 +63,7 @@ function Sections() {
                     return {
                         ...item,
                         title: 'Logout',
-                        url: '/login',
+                        url: '/login2',
                         cName: 'nav-links',
                         icon: null
                     };

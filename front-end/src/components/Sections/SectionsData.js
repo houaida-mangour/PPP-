@@ -33,13 +33,13 @@ export const SectionsData = [
     },
     {
         title: 'Login',
-        url: '/LogIn', // Adjust based on your routing setup
+        url: '/LogIn2', // Adjust based on your routing setup
         cName: 'nav-links-mobile',
         icon: faUnlock 
     },
     {
         title: 'Signup',
-        url: '/SignUp', // Adjust based on your routing setup
+        url: '/SignUp2', // Adjust based on your routing setup
         cName: 'nav-links-mobile',
         icon: faUser 
     }   

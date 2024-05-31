@@ -1,0 +1,11 @@
+
+.eventWrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.eventWrap > * {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

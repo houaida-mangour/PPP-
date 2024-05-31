@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useridresponse } from '../Login/Login';
+import { useridresponse } from '../Login2/Login';
+import { dividerClasses } from '@mui/material';
+import './EventForm.css'
 
 
 const EventForm = () => {
@@ -64,7 +66,8 @@ const EventForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className='w'>
+      <form onSubmit={handleSubmit}>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Event Name" required />
       <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Event Description" required></textarea>
       <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
@@ -79,6 +82,8 @@ const EventForm = () => {
       <input type="file" onChange={(e) => setImageFile(e.target.files[0])} required />
       <button type="submit">Create Event</button>
     </form>
+    </div>
+    
   );
 };
 

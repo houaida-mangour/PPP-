@@ -6,6 +6,7 @@ const generateToken = (userId) => {
 };
 
 export const verifyUser = async (req, res, next) => {
+    
     try {
         const token = req.cookies.token;
         if (!token) {
