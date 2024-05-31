@@ -3,20 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.15.18",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@uploadthing/react": "^6.6.0",
+    "antd": "^5.17.4",
     "autoprefixer": "^10.4.19",
+    "axios": "^1.7.2",
     "emailjs-com": "^3.2.0",
     "postcss": "^8.4.38",
     "react": "^18.2.0",
+    "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.5",
     "react-icons": "^5.1.0",
-    "react-router-dom": "^6.22.3",
+    "react-router-dom": "^6.23.1",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.5",
     "swiper": "^11.1.1",
+    "uploadthing": "^6.12.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -44,6 +56,7 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.11"
   }
 }

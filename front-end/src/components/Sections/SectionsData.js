@@ -1,9 +1,9 @@
-import { faHouseUser, faInfoCircle, faAddressBook, faCalendar, faUnlock, faUser,faCog } from '@fortawesome/free-solid-svg-icons';
+import { faHouseUser, faInfoCircle, faAddressBook, faCalendar, faUnlock, faUser, faCog } from '@fortawesome/free-solid-svg-icons';
 
 export const SectionsData = [
     {
         title: 'Home',
-        url: '#',
+        url: '/', 
         cName: 'nav-links',
         icon: faHouseUser, 
     },
@@ -11,37 +11,35 @@ export const SectionsData = [
         title: 'About us',
         url: '#AboutUs',
         cName: 'nav-links',
-
         icon: faInfoCircle 
     },
     {
         title: 'Services',
-        url: '#work-service',
+        url: '#work-service', 
         cName: 'nav-links',
-
         icon: faCog 
     },
     {
         title: 'Contact',
-        url: '#Contact',
+        url: '#Contact', 
         cName: 'nav-links',
         icon: faAddressBook 
     },
     {
         title: 'Events',
-        url: '#',
+        url: '/EventPage', 
         cName: 'nav-links',
         icon: faCalendar 
     },
     {
         title: 'Login',
-        url: '#LogIn',
+        url: '/LogIn', 
         cName: 'nav-links-mobile',
         icon: faUnlock 
     },
     {
         title: 'Signup',
-        url: '#SignUp',
+        url: '/SignUp', 
         cName: 'nav-links-mobile',
         icon: faUser 
     }   

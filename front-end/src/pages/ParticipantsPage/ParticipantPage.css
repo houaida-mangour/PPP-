@@ -1,0 +1,42 @@
+/* ParticipantList.css */
+.participant-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .participant-list h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .participant-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .participant-list th, .participant-list td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .participant-list th {
+    background-color: #f2f2f2;
+  }
+  
+  .participant-list tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .participant-list tr:hover {
+    background-color: #e9e9e9;
+  }
+  
+  .participant-list td {
+    color: #333;
+  }
+  
