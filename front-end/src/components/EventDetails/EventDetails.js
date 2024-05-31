@@ -44,9 +44,12 @@ const EventDetails = () => {
     fetchEvent();
   }, [id]);
 
-  const handleParticipateClick = () => {
+  const handleParticipateClick = (eventId) => {
     if (isLoggedIn) {
-      navigate('/participateform');
+      navigate(`/participateform/${eventId}`); 
+      console.log('the event id:', eventId);
+      console.log('le id de event ',eventidresponse);
+
     } else {
       navigate('/login');
     }

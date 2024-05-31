@@ -68,7 +68,7 @@ const EventCard = ({ event, hidePrice }) => {
           <Button>
             <Link to={`/eventdetails/${event._id}`}>Learn More</Link>
           </Button>
-          <Button onClick={() => handleParticipateClick(event._id)}>Participate</Button> {/* Utilisez une fonction fléchée pour passer l'ID de l'événement */}
+          <Button onClick={() => handleParticipateClick(event._id)}>Participate</Button> 
         </CardActions>
       </Card>
     </div>
