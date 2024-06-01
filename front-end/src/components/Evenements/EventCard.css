@@ -6,8 +6,8 @@
   }
   
   .event-card {
-    width: 600px; /* Largeur fixe pour toutes les cartes */
-    height: 400px; /* Hauteur fixe pour toutes les cartes */
+    width: 600px; 
+    height: 400px; 
     margin: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
@@ -28,11 +28,10 @@
     margin-bottom: 20px;
 }
   
-  /* Fixing the dimensions of the card image */
   .EventCard img {
     width: 600px;
-    height: 200px; /* Set the fixed height for the image */
-    object-fit: cover; /* Ensure the image covers the entire area */
+    height: 200px; 
+    object-fit: cover; 
   }
   
   .event-card-actions {
