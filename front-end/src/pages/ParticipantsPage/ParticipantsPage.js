@@ -58,6 +58,7 @@ const ParticipantList = () => {
           <tr>
             <th>Username</th>
             <th>Email</th>
+            <th>Phone Number</th>
             <th>Food Request</th>
             <th>Special Request</th>
           </tr>
@@ -67,6 +68,7 @@ const ParticipantList = () => {
             <tr key={participant.participantId}>
               <td>{participant.user.username}</td>
               <td>{participant.user.email}</td>
+              <td>{participant.phoneNumber}</td>
               <td>{participant.food}</td>
               <td>{participant.specialRequest}</td>
             </tr>

@@ -1,3 +1,5 @@
+// EventDetails.js
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -7,7 +9,8 @@ import { GiPositionMarker } from "react-icons/gi";
 import { MdOutlineDateRange } from "react-icons/md";
 import { IoIosPricetags } from "react-icons/io";
 import { useridresponse } from '../Login/Login';
-let eventidresponse= null;
+import DetailedPlan from '../DetailedPlan/DetailedPlan';
+let eventidresponse = null;
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -69,32 +72,32 @@ const EventDetails = () => {
           <h1>{event && event.name}</h1>
           <p>{event && event.description}</p>
           <p>
-            <MdOutlineDateRange /> Start Date: {event && new Date(event.startDate).toLocaleDateString()}
+            <MdOutlineDateRange /> <b> Start Date:</b> {event && new Date(event.startDate).toLocaleDateString()}
           </p>
           <p>
-            <MdOutlineDateRange /> End Date: {event && new Date(event.endDate).toLocaleDateString()}
+            <MdOutlineDateRange /> <b>End Date:</b> {event && new Date(event.endDate).toLocaleDateString()}
           </p>
           <p>
             <GiPositionMarker /> {event && event.location}
           </p>
           <p>
-            **Nombre des participants: {event && event.participants}**
+            <b>Nombre des participants:</b> {event && event.participants}
           </p>
           <p>
-            <IoIosPricetags /> Price: {event && event.isFree ? 'Free' : `${event.price} DT`}
+            <IoIosPricetags /> <b> Price:</b> {event && event.isFree ? 'Free' : `${event.price} DT`}
           </p>
           
           {/* Affichage des options de catering si elles existent */}
           {event && event.cateringTypes && event.cateringTypes.length > 0 && (
             <p>
-              Include Catering: {event.cateringTypes.join(', ')}
+              <b>Include Catering: </b>{event.cateringTypes.join(', ')}
             </p>
           )}
-
+  
           {/* Affichage des options de rooming si elles existent */}
           {event && event.roomingOptions && event.roomingOptions.length > 0 && (
             <p>
-              Rooming Options: {event.roomingOptions.join(', ')}
+             <b> Rooming Options:</b> {event.roomingOptions.join(', ')}
             </p>
           )}
           
@@ -103,8 +106,12 @@ const EventDetails = () => {
           </div>
         </div>
       </div>
+      <div className="containerdetails mx-auto px-4">
+        {event && event.detailedPlan && <DetailedPlan detailedPlan={event.detailedPlan} />}
+      </div>
     </div>
   );
+  
 };
 
 export { EventDetails, eventidresponse };

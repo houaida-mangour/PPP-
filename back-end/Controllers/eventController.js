@@ -24,11 +24,11 @@ const upload = multer({ storage });
 
 export const createEvent = async (req, res) => {
   try {
-    const { name, description, startDate, endDate, location, price, participants, userId, cateringTypes ,roomingOptions} = req.body;
+    const { name, description, startDate, endDate, location, price, participants, userId, cateringTypes ,roomingOptions,detailedPlan} = req.body;
     if (!req.file) {
       return res.status(400).json({ error: 'Image is required' });
     }
-    if (!name || !description || !startDate || !endDate || !location || price === undefined || !participants) {
+    if (!name || !description || !startDate || !endDate || !location || price === undefined || !participants || !detailedPlan) {
       return res.status(400).json({ error: 'All fields are required' });
     }
     const imageUrl = `/uploads/${req.file.filename}`;
@@ -43,7 +43,8 @@ export const createEvent = async (req, res) => {
       price,
       participants,
       cateringTypes,
-      roomingOptions
+      roomingOptions,
+      detailedPlan
 
     });
 
@@ -197,8 +198,8 @@ export const getEventsByUserId = async (req, res) => {
 
 export const participateInEvent = async (req, res) => {
   try {
-    const { food, specialRequest, userId, eventId } = req.body;
-    if (!food || !specialRequest || !userId || !eventId) {
+    const {phoneNumber, food, specialRequest, userId, eventId } = req.body;
+    if (!phoneNumber || !userId || !eventId) {
       return res.status(400).json({ error: 'All fields are required' });
     }
     const existingParticipant = await Participant.findOne({ participantid: userId, participantEventid: eventId });
@@ -225,6 +226,7 @@ export const participateInEvent = async (req, res) => {
      }
  
     const newParticipant = new Participant({
+      phoneNumber,
       food,
       specialRequest,
       participantid: userId,
@@ -275,6 +277,7 @@ export const getEventParticipantsWithUsers = async (req, res) => {
 
     const participantsWithUsers = participants.map(participant => ({
       participantId: participant._id,
+      phoneNumber: participant.phoneNumber,
       food: participant.food,
       specialRequest: participant.specialRequest,
       user: {

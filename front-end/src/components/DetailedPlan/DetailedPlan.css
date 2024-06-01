@@ -1,0 +1,41 @@
+/* DetailedPlan.css */
+
+.detailed-plan-title {
+    font-size: 24px; /* Augmente la taille du titre */
+    text-align: center; /* Centre le texte */
+    margin-bottom: 20px; /* Espacement en bas */
+    color: #d18100;
+  }
+
+.detailed-plan-container {
+    margin: 2em;
+  }
+  
+  .detailed-plan-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .detailed-plan-item {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #333; /* Couleur du texte */
+    line-height: 1.5; /* Espacement entre les lignes */
+  }
+  
+  .detailed-plan-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ffd000;
+    margin-right: 10px; /* Espacement entre le cercle et le texte */
+  }
+  

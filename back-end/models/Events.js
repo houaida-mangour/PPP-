@@ -11,7 +11,8 @@ const EventSchema = new mongoose.Schema({
     imageUrl: { type: String, required: true },
     organizer : { type: mongoose.Types.ObjectId, ref: 'User' },
     cateringTypes: [{ type: String }] ,
-    roomingOptions: [{ type: String }]
+    roomingOptions: [{ type: String }],
+    detailedPlan: { type: String, required: true }
 
 });
 

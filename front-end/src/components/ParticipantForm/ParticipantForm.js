@@ -7,11 +7,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./ParticipantForm.css";
 
+const PARTICIPATE_URL = 'http://localhost:8000/events/participate';
+
 const ParticipantForm = () => {
   const navigate = useNavigate();
 
   const [food, setFood] = useState('');
   const [selectRequest, setSelectRequest] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,8 +23,9 @@ const ParticipantForm = () => {
       const token = localStorage.getItem('token');
 
       const participantData = {
-        food,
-        specialRequest: selectRequest,
+        food: food.trim() || null,
+        specialRequest: selectRequest.trim() || null,
+        phoneNumber: phoneNumber.trim(),
         userId: useridresponse,
         eventId: eventidresponse,
       };
@@ -33,16 +37,17 @@ const ParticipantForm = () => {
         }
       };
 
-      const uploadResponse = await axios.post('http://localhost:8000/events/participate', participantData, config);
+      const uploadResponse = await axios.post(PARTICIPATE_URL, participantData, config);
 
       if (uploadResponse.status === 201) {
         navigate(`/eventdetails/${eventidresponse}`);
+        // Reset form fields after successful submission
+        setFood('');
+        setSelectRequest('');
+        setPhoneNumber('');
       } else {
         console.error('Error adding participant');
       }
-
-      setFood('');
-      setSelectRequest('');
 
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -61,9 +66,10 @@ const ParticipantForm = () => {
     <div>
       <ToastContainer />
       <form onSubmit={handleSubmit}>
-        <p>Catering: food preferences,food allergy...</p>
-        <textarea value={food} onChange={(e) => setFood(e.target.value)} placeholder="Food" required></textarea>
-        <textarea value={selectRequest} onChange={(e) => setSelectRequest(e.target.value)} placeholder="Select Request" required></textarea>
+        <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder="Phone Number" required />
+        <p>Catering: food preferences, food allergy...</p>
+        <textarea value={food} onChange={(e) => setFood(e.target.value)} placeholder="Food"></textarea>
+        <textarea value={selectRequest} onChange={(e) => setSelectRequest(e.target.value)} placeholder="Select Request"></textarea>
         <button type="submit">Submit Form</button>
       </form>
     </div>

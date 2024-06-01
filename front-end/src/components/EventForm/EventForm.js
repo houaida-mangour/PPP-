@@ -1,8 +1,10 @@
+// EventForm.js
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useridresponse } from '../Login/Login';
-import './EventForl.css';  
+import './EventForl.css';
 
 const EventForm = () => {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const EventForm = () => {
   const [price, setPrice] = useState(0);
   const [cateringTypes, setCateringTypes] = useState([]);
   const [roomingOptions, setRoomingOptions] = useState([]);
+  const [detailedPlan, setDetailedPlan] = useState(''); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,7 +38,7 @@ const EventForm = () => {
       formData.append('userId', useridresponse);
       formData.append('cateringTypes', cateringTypes);
       formData.append('roomingOptions', roomingOptions);
-
+      formData.append('detailedPlan', detailedPlan); 
       const token = localStorage.getItem('token');
 
       const uploadResponse = await axios.post('http://localhost:8000/events/create', formData, {
@@ -63,6 +66,7 @@ const EventForm = () => {
       setImageFile(null);
       setCateringTypes([]);
       setRoomingOptions([]);
+      setDetailedPlan('');
 
     } catch (error) {
       console.error('Error creating event:', error);
@@ -165,6 +169,15 @@ const EventForm = () => {
           <span>Triple</span>
         </label>
       </div>
+      <label htmlFor="detailedPlan">Detailed Plan:</label>
+      <textarea
+        id="detailedPlan"
+        name="detailedPlan"
+        value={detailedPlan}
+        onChange={(e) => setDetailedPlan(e.target.value)}
+        placeholder="Enter the detailed plan for the event"
+        required
+      />
       <input type="file" onChange={(e) => setImageFile(e.target.files[0])} required />
       <button type="submit">Create Event</button>
     </form>
