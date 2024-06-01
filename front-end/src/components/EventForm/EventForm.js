@@ -16,6 +16,8 @@ const EventForm = () => {
   const [isFree, setIsFree] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [price, setPrice] = useState(0);
+  const [cateringTypes, setCateringTypes] = useState([]);
+  const [roomingOptions, setRoomingOptions] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,6 +33,8 @@ const EventForm = () => {
       formData.append('price', isFree ? 0 : price);
       formData.append('image', imageFile);
       formData.append('userId', useridresponse);
+      formData.append('cateringTypes', cateringTypes);
+      formData.append('roomingOptions', roomingOptions);
 
       const token = localStorage.getItem('token');
 
@@ -57,6 +61,8 @@ const EventForm = () => {
       setParticipants('');
       setIsFree(false);
       setImageFile(null);
+      setCateringTypes([]);
+      setRoomingOptions([]);
 
     } catch (error) {
       console.error('Error creating event:', error);
@@ -76,6 +82,89 @@ const EventForm = () => {
         Free Event
         <input type="checkbox" checked={isFree} onChange={(e) => setIsFree(e.target.checked)} />
       </label>
+      <p>Catering</p>
+      <div className="checkbox-container">
+        <label className="catering-label">
+          <input type="checkbox" value="Break-coffee" checked={cateringTypes.includes('Break-coffee')} onChange={(e) => {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+              setCateringTypes([...cateringTypes, e.target.value]);
+            } else {
+              setCateringTypes(cateringTypes.filter(type => type !== e.target.value));
+            }
+          }} />
+          <span>Break-coffee</span>
+        </label>
+        <label className="catering-label">
+          <input type="checkbox" value="Breakfast" checked={cateringTypes.includes('Breakfast')} onChange={(e) => {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+              setCateringTypes([...cateringTypes, e.target.value]);
+            } else {
+              setCateringTypes(cateringTypes.filter(type => type !== e.target.value));
+            }
+          }} />
+          <span>Breakfast</span>
+        </label>
+        <label className="catering-label">
+          <input type="checkbox" value="Lunch" checked={cateringTypes.includes('Lunch')} onChange={(e) => {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+              setCateringTypes([...cateringTypes, e.target.value]);
+            } else {
+              setCateringTypes(cateringTypes.filter(type => type !== e.target.value));
+            }
+          }} />
+          <span>Lunch</span>
+        </label>
+        <label className="catering-label">
+          <input type="checkbox" value="Dinner" checked={cateringTypes.includes('Dinner')} onChange={(e) => {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+              setCateringTypes([...cateringTypes, e.target.value]);
+            } else {
+              setCateringTypes(cateringTypes.filter(type => type !== e.target.value));
+            }
+          }} />
+          <span>Dinner</span>
+        </label>
+      </div>
+      <p>Rooming </p>
+      <div className="checkbox-container">
+        <label className="rooming-label">
+          <input type="checkbox" value="Single" checked={roomingOptions.includes('Single')} onChange={(e) => {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+              setRoomingOptions([...roomingOptions, e.target.value]);
+            } else {
+              setRoomingOptions(roomingOptions.filter(option => option !== e.target.value));
+            }
+          }} />
+          <span>Single</span>
+        </label>
+        <label className="rooming-label">
+          <input type="checkbox" value="Double" checked={roomingOptions.includes('Double')} onChange={(e) => {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+              setRoomingOptions([...roomingOptions, e.target.value]);
+            } else {
+              setRoomingOptions(roomingOptions.filter(option => option !== e.target.value));
+            }
+          }} />
+          <span>Double</span>
+        </label>
+        <label className="rooming-label">
+          <input type="checkbox" value="Suite" checked={roomingOptions.includes('Suite')} onChange={(e) => {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+              setRoomingOptions([...roomingOptions, e.target.value]);
+            } else {
+              setRoomingOptions(roomingOptions.filter(option => option !== e.target.value));
+            }
+          }} />
+          <span>Triple</span>
+        </label>
+      </div>
       <input type="file" onChange={(e) => setImageFile(e.target.files[0])} required />
       <button type="submit">Create Event</button>
     </form>

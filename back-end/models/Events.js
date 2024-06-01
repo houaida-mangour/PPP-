@@ -10,6 +10,8 @@ const EventSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     imageUrl: { type: String, required: true },
     organizer : { type: mongoose.Types.ObjectId, ref: 'User' },
+    cateringTypes: [{ type: String }] ,
+    roomingOptions: [{ type: String }]
 
 });
 

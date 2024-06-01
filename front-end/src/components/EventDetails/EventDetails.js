@@ -9,10 +9,9 @@ import { IoIosPricetags } from "react-icons/io";
 import { useridresponse } from '../Login/Login';
 let eventidresponse= null;
 
-
 const EventDetails = () => {
   const { id } = useParams();
-  eventidresponse=id;
+  eventidresponse = id;
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,8 +19,7 @@ const EventDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    if (useridresponse!=null) {
+    if (useridresponse != null) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
@@ -33,7 +31,7 @@ const EventDetails = () => {
       try {
         const eventResponse = await axios.get(`http://localhost:8000/events/${id}`);
         setEvent(eventResponse.data);
-        console.log(eventResponse.data.imageUrl);  
+        console.log(eventResponse.data.imageUrl);
       } catch (err) {
         setError('Error fetching event details');
       } finally {
@@ -46,10 +44,9 @@ const EventDetails = () => {
 
   const handleParticipateClick = (eventId) => {
     if (isLoggedIn) {
-      navigate(`/participateform/${eventId}`); 
+      navigate(`/participateform/${eventId}`);
       console.log('the event id:', eventId);
-      console.log('le id de event ',eventidresponse);
-
+      console.log('le id de event ', eventidresponse);
     } else {
       navigate('/login');
     }
@@ -59,7 +56,7 @@ const EventDetails = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div> 
+    <div>
       <Navbar />
       <div className="containerdetails flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
         <div className="containerdetails mx-auto px-4">
@@ -81,15 +78,33 @@ const EventDetails = () => {
             <GiPositionMarker /> {event && event.location}
           </p>
           <p>
+            **Nombre des participants: {event && event.participants}**
+          </p>
+          <p>
             <IoIosPricetags /> Price: {event && event.isFree ? 'Free' : `${event.price} DT`}
           </p>
+          
+          {/* Affichage des options de catering si elles existent */}
+          {event && event.cateringTypes && event.cateringTypes.length > 0 && (
+            <p>
+              Include Catering: {event.cateringTypes.join(', ')}
+            </p>
+          )}
+
+          {/* Affichage des options de rooming si elles existent */}
+          {event && event.roomingOptions && event.roomingOptions.length > 0 && (
+            <p>
+              Rooming Options: {event.roomingOptions.join(', ')}
+            </p>
+          )}
+          
           <div className="mt-7 flex flex-row items-center gap-6">
             <button className="button-participate" onClick={handleParticipateClick}>Participate</button>
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   );
 };
 
-export {EventDetails,eventidresponse};
+export { EventDetails, eventidresponse };

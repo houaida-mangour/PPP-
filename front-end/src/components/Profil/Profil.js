@@ -71,7 +71,7 @@ const Profil = () => {
 
     return (
         <div className="profile-container">
-            <h2 className="profile-title">User Profile</h2>
+            <h2 className="profile-title">{userData.username} Profile</h2>
             <div className="profile-field">
                 <label>Username:</label>
                 {editing ? (

@@ -54,3 +54,18 @@ form {
     background-color: #ffd000;
   }
   
+  .checkbox-container {
+    display: flex;
+  }
+  
+  .checkbox-container label {
+    margin-right: 10px;
+  }
+  .catering-label  {
+    margin-left: 50px;
+  }
+
+  .rooming-label {
+    margin-left: 50px;
+  }
+  

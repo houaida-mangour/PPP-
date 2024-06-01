@@ -24,7 +24,7 @@ const upload = multer({ storage });
 
 export const createEvent = async (req, res) => {
   try {
-    const { name, description, startDate, endDate, location, price, participants, userId } = req.body;
+    const { name, description, startDate, endDate, location, price, participants, userId, cateringTypes ,roomingOptions} = req.body;
     if (!req.file) {
       return res.status(400).json({ error: 'Image is required' });
     }
@@ -38,10 +38,13 @@ export const createEvent = async (req, res) => {
       startDate,
       endDate,
       location,
-      organizer: userId, 
+      organizer: userId,
       imageUrl,
       price,
-      participants
+      participants,
+      cateringTypes,
+      roomingOptions
+
     });
 
     const savedEvent = await newEvent.save();
