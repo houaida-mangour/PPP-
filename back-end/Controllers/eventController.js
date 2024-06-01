@@ -3,6 +3,10 @@ import { User } from '../models/User.js';
 import multer from 'multer';
 import path from 'path';
 import Participant from '../models/Participant.js'; 
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -273,6 +277,49 @@ export const getEventParticipantsWithUsers = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+export const sendEmailToParticipants = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { subject, body } = req.body;
+
+    const participants = await Participant.find({ participantEventid: id }).populate('participantid');
+
+    if (!participants.length) {
+      return res.status(404).json({ message: 'No participants found for this event' });
+    }
+
+    const emailList = participants.map(participant => participant.participantid.email);
+
+    console.log(`Sending email to: ${emailList.join(', ')}`);
+    console.log(`Email subject: ${subject}`);
+    console.log(`Email body: ${body}`);
+
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail', 
+      auth: {
+        user: process.env.EMAIL_USER, // Utilisation correcte des variables d'environnement
+        pass: process.env.EMAIL_PASS, 
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER, // Utilisation correcte des variables d'environnement
+      to: emailList,
+      subject: subject,
+      text: body,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: 'Email sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 
 

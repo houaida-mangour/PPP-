@@ -1,5 +1,5 @@
 import { Menu } from 'antd';
-import { HomeOutlined , UnorderedListOutlined , UserOutlined } from '@ant-design/icons';
+import { HomeOutlined , UnorderedListOutlined , UserOutlined, CalendarOutlined } from '@ant-design/icons';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar.js';
 import Footer from '../../components/Footer/Footer.js';
@@ -40,7 +40,7 @@ export default function ParticipantDashboard() {
                 {
                     label : "Calendar" ,
                     key : "calendar",
-                    icon : <HomeOutlined />
+                    icon : <CalendarOutlined />
                 } ,
                 {
                     label : "Create Events" ,

@@ -7,6 +7,8 @@ const ParticipantList = () => {
   const { id } = useParams();
   const [eventName, setEventName] = useState('');
   const [participants, setParticipants] = useState([]);
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailBody, setEmailBody] = useState('');
 
   useEffect(() => {
     const fetchEventDetails = async () => {
@@ -35,6 +37,19 @@ const ParticipantList = () => {
     fetchParticipants();
   }, [id]);
 
+  const sendEmailToParticipants = async () => {
+    try {
+      await axios.post(`http://localhost:8000/events/${id}/send-email`, {
+        subject: emailSubject,
+        body: emailBody
+      });
+      alert('Email sent successfully!');
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('Failed to send email.');
+    }
+  };
+
   return (
     <div className="participant-list">
       <h2>Participants for Event {eventName}</h2>
@@ -58,6 +73,22 @@ const ParticipantList = () => {
           ))}
         </tbody>
       </table>
+
+      <div className="email-form">
+        <h3>Send Email to Participants</h3>
+        <input 
+          type="text"
+          placeholder="Subject"
+          value={emailSubject}
+          onChange={(e) => setEmailSubject(e.target.value)}
+        />
+        <textarea
+          placeholder="Body"
+          value={emailBody}
+          onChange={(e) => setEmailBody(e.target.value)}
+        />
+        <button onClick={sendEmailToParticipants}>Send Email</button>
+      </div>
     </div>
   );
 };

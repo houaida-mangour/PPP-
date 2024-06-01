@@ -1,9 +1,9 @@
-/* ParticipantList.css */
 .participant-list {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
+    margin-bottom: 100px;
   }
   
   .participant-list h2 {
@@ -39,4 +39,22 @@
   .participant-list td {
     color: #333;
   }
+
+  .email-form {
+    margin-top: 70px; 
+}
+
+  .email-form button {
+    background-color: #d18100;
+    color: #fff; 
+    padding: 10px 20px; 
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; 
+}
+
+.email-form button:hover {
+    background-color: #ffc25f; /* Changez la couleur de fond au survol */
+}
+
   
