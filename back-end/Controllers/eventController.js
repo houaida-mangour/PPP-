@@ -5,6 +5,8 @@ import path from 'path';
 import Participant from '../models/Participant.js'; 
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import Notification from '../models/Notification.js';
+
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
 
 export const createEvent = async (req, res) => {
   try {
@@ -42,6 +45,11 @@ export const createEvent = async (req, res) => {
     });
 
     const savedEvent = await newEvent.save();
+    const eventCreationNotification = new Notification({
+      userId: userId,
+      message: `You have successfully created the event "${name}".`
+    });
+    await eventCreationNotification.save();
 
     res.status(201).json(savedEvent);
   } catch (error) {
@@ -187,38 +195,32 @@ export const getEventsByUserId = async (req, res) => {
 export const participateInEvent = async (req, res) => {
   try {
     const { food, specialRequest, userId, eventId } = req.body;
-
-    // Vérifiez les champs requis
     if (!food || !specialRequest || !userId || !eventId) {
       return res.status(400).json({ error: 'All fields are required' });
     }
-
-    // Vérifiez si l'utilisateur participe déjà à cet événement
     const existingParticipant = await Participant.findOne({ participantid: userId, participantEventid: eventId });
     if (existingParticipant) {
       return res.status(400).json({ error: 'User already registered for this event' });
     }
-
-     // Trouver l'événement par son ID
      const event = await Event.findById(eventId);
      if (!event) {
        return res.status(404).json({ error: 'Event not found' });
      }
- 
-     // Vérifier si la date de début de l'événement est passée
-     const now = new Date();
+      const now = new Date();
      if (new Date(event.startDate) < now) {
        return res.status(400).json({ error: 'Cannot participate, event has already started' });
      }
- 
-     // Compter le nombre actuel de participants
      const participantCount = await Participant.countDocuments({ participantEventid: eventId });
      if (participantCount >= event.participants) {
+       const eventFullNotification = new Notification({
+         userId: event.organizer,
+         message: `Your event "${event.name}" has reached the maximum number of participants and is now full.`
+       });
+       await eventFullNotification.save();
+ 
        return res.status(400).json({ error: 'Cannot participate, event is full' });
      }
  
-
-    // Créez une nouvelle instance de Participant avec les données de la requête
     const newParticipant = new Participant({
       food,
       specialRequest,
@@ -226,12 +228,20 @@ export const participateInEvent = async (req, res) => {
       participantEventid: eventId
     });
     const savedParticipant = await newParticipant.save();
+    const userNotification = new Notification({
+      userId,
+      message: `You have successfully registered for the event "${event.name}".`
+    });
+    await userNotification.save();
+
     res.status(201).json(savedParticipant);
   } catch (error) {
     console.error('Error creating participant:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
 
 export const getUserParticipatedEvents = async (req, res) => {
   try {

@@ -26,6 +26,12 @@ const connectDB = async () => {
         });
         console.log('Connected to participant database');
 
+        await mongoose.createConnection(process.env.NOTIFICATION_DB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log('Connected to notification database');
+
     } catch (error) {
         console.error('Error connecting to the database', error);
         process.exit(1);

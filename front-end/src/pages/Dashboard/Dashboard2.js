@@ -1,5 +1,5 @@
 import { Menu } from 'antd';
-import { HomeOutlined , UnorderedListOutlined , UserOutlined, CalendarOutlined } from '@ant-design/icons';
+import { HomeOutlined , UnorderedListOutlined , UserOutlined, CalendarOutlined, BellOutlined } from '@ant-design/icons';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar.js';
 import Footer from '../../components/Footer/Footer.js';
@@ -9,6 +9,7 @@ import MyEvents from '../../components/MyEvents/MyEvents.js';
 import MyTickets from '../../components/MyTickets/MyTickets.js';
 import Profil from '../../components/Profil/Profil.js';
 import MyCalendar from '../../components/Evenements/Calendar.js';
+import Notifications from '../../components/Notifications/Notifications.js';
 
 export default function ParticipantDashboard() {
     const navigate = useNavigate() ;
@@ -32,6 +33,11 @@ export default function ParticipantDashboard() {
                         key : "profil",
                         icon : <UserOutlined />
                 } ,
+                {
+                    label : "Notification" ,
+                    key : "notification",
+                    icon : <BellOutlined />
+            } ,
                 {
                     label : "All Events" ,
                     key : "eventpagedash",
@@ -85,6 +91,7 @@ function Content() {
                 <Route path="mytickets" element={<MyTickets />} />
                 <Route path="profil" element={<Profil />} />
                 <Route path="calendar" element={<MyCalendar />} />
+                <Route path="notification" element={<Notifications />} />
 
 
             </Routes>

@@ -1,0 +1,20 @@
+.notifications-container {
+    padding: 20px;
+  }
+  
+  .notification-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ffebb9;
+    border-radius: 5px;
+  }
+  
+  .notification-message {
+    font-weight: bold;
+  }
+  
+  .notification-timestamp {
+    color: #999999;
+    font-size: 0.8em;
+  }
+  

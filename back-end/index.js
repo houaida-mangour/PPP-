@@ -5,6 +5,8 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 import participantRoutes from './routes/ParticipantRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
+
 
 import path from 'path'; 
 import cors from 'cors'; 
@@ -25,6 +27,8 @@ app.use(cors({
 app.use('/auth', authRoutes);
 app.use('/events', eventRoutes);
 app.use('/participants', participantRoutes);
+app.use('/notifications', notificationRoutes);
+
 
 
 const uploadsPath = path.join(path.resolve(), 'uploads'); 
