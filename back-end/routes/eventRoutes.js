@@ -1,6 +1,6 @@
 import express from 'express';
 import { createEvent, getEvents, getEventById, updateEvent, deleteEvent, upload, 
-        getEventsByUser, participateInEvent,getEventParticipantsWithUsers, getAllEvents,sendEmailToParticipants, 
+        getEventsByUser, participateInEvent,getEventParticipantsWithUsers, getAllEvents,
                                                 sendMessageToParticipants } from '../Controllers/eventController.js';
 import { verifyUser } from '../middlewares/authMiddleware.js';
 
@@ -16,7 +16,6 @@ router.delete('/:id', deleteEvent);
 router.post('/participate',  participateInEvent);
 router.get('/:id/participants', getEventParticipantsWithUsers);
 router.post('/:id/message', sendMessageToParticipants);
-router.post('/:id/send-email', sendEmailToParticipants);
 
 
 

@@ -31,7 +31,7 @@ const UpdateEventForm = () => {
         });
         setEventData({
           ...response.data,
-          imageFile: null, // Initially no new image
+          imageFile: null, 
         });
       } catch (error) {
         console.error('Error fetching event data:', error);

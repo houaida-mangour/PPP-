@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.png';
+import { Link, useNavigate } from "react-router-dom";
 import { IoMdContact } from 'react-icons/io';
 import { MdEmail } from 'react-icons/md';
 import { SiGooglemaps } from 'react-icons/si';
@@ -23,7 +24,8 @@ function Footer() {
         <a key="home" href="#">Home</a>,
         <a key="about" href="#AboutUs">About Us</a>,
         <a key="services" href="#work-service">Services</a>,
-        <a key="events" href="#">Events</a>
+        <div><Link to="/eventpage">Events</Link></div>
+        
       ] },
     { type: 'section', title: <strong>Contact</strong>, items: [
         'PLURIVENT',
@@ -31,9 +33,11 @@ function Footer() {
         <><MdEmail /> PLURIVENT@gmail.com</>,
         <><SiGooglemaps />INSAT, Centre Urabain Nord</>
       ] },
-    { type: 'section', title: <strong>Account</strong>, items: [
-        <a key="signup" href="#">Signup</a>,
-        <a key="login" href="#">Login</a>
+      { type: 'section', title: <strong>Account</strong>, items: [
+        <div key="account-links">
+          <div><Link to="/SignUp">Signup</Link></div>
+          <div><Link to="/Login">Login</Link></div>
+        </div>
       ] },
     { type: 'image', imageUrl: './logo.png' }
   ];

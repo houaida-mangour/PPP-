@@ -1,4 +1,3 @@
-// Calendar.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar, momentLocalizer } from 'react-big-calendar';

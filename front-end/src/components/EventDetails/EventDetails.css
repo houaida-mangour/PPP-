@@ -1,7 +1,7 @@
 .containerdetails {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Aligner les éléments en haut */
+    align-items: flex-start; 
   }
   
   .containerdetails img {
@@ -9,7 +9,7 @@
   }
   
   .containerdetails > div {
-    width: calc(50% - 20px); /* Réglage de la largeur des deux colonnes */
+    width: calc(50% - 20px); 
   }
   
   .containerdetails h1 {
@@ -21,26 +21,25 @@
     margin-bottom: 0.5rem;
   }
   
-  /* Style de l'icône */
   .icon {
-    vertical-align: middle; /* Alignement vertical avec le texte */
-    margin-right: 5px; /* Marge à droite de l'icône */
+    vertical-align: middle;
+    margin-right: 5px; 
   }
   
   .button-participate {
     display: inline-block;
-    height: 48px; /* Hauteur personnalisée */
-    width: 100%; /* Largeur personnalisée */
+    height: 48px; 
+    width: 100%; 
     border: none;
     border-radius: 4px;
-    background-color: #4b5563; /* Couleur de fond du bouton */
-    color: #ffffff; /* Couleur du texte */
+    background-color: #4b5563; 
+    color: #ffffff; 
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .button-participate:hover {
-    background-color: #2c7a7b; /* Couleur de fond du bouton au survol */
+    background-color: #2c7a7b;
   }
   

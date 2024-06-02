@@ -19,6 +19,7 @@ const connectDB = async () => {
             useUnifiedTopology: true
         });
         console.log('Connected to events database');
+
         
         await mongoose.createConnection(process.env.PARTICIPANT_DB_URI, {
             useNewUrlParser: true,
@@ -26,11 +27,14 @@ const connectDB = async () => {
         });
         console.log('Connected to participant database');
 
+
         await mongoose.createConnection(process.env.NOTIFICATION_DB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
         console.log('Connected to notification database');
+
+        
 
     } catch (error) {
         console.error('Error connecting to the database', error);

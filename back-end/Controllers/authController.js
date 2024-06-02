@@ -23,12 +23,12 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-        return res.status(401).json({ error: "user is not registered" }); // 401 Unauthorized
+        return res.status(401).json({ error: "user is not registered" }); 
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-        return res.status(401).json({ error: "password is incorrect" }); // 401 Unauthorized
+        return res.status(401).json({ error: "password is incorrect" }); 
     }
 
     const token = jwt.sign({ userId: user._id}, process.env.KEY, {

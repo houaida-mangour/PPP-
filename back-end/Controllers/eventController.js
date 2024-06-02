@@ -165,8 +165,8 @@ export const updateEvent = async (req, res) => {
 
 export const deleteEvent = async (req, res) => {
   try {
-    const eventId = req.params.id; // Récupérer l'ID de l'événement à supprimer
-    const deletedEvent = await Event.findByIdAndDelete(eventId); // Supprimer l'événement par son ID
+    const eventId = req.params.id; 
+    const deletedEvent = await Event.findByIdAndDelete(eventId); 
 
     if (!deletedEvent) {
       return res.status(404).json({ error: 'Event not found' });
@@ -184,7 +184,6 @@ export const getEventsByUserId = async (req, res) => {
   try {
       const { userId } = req.params;
 
-      // Find the user by ID
       const user = await User.findById(userId).populate('organizerOfEvents participantInEvents');
 
       if (!user) {
@@ -192,8 +191,8 @@ export const getEventsByUserId = async (req, res) => {
       }
 
       const events = {
-          organizerOfEvents: user.organizerOfEvents, //an array of objects not ids because we populated
-          participantInEvents: user.participantInEvents //same
+          organizerOfEvents: user.organizerOfEvents,
+          participantInEvents: user.participantInEvents 
       };
 
       res.status(200).json(events);
@@ -302,48 +301,6 @@ export const getEventParticipantsWithUsers = async (req, res) => {
   }
 };
 
-
-
-export const sendEmailToParticipants = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { subject, body } = req.body;
-
-    const participants = await Participant.find({ participantEventid: id }).populate('participantid');
-
-    if (!participants.length) {
-      return res.status(404).json({ message: 'No participants found for this event' });
-    }
-
-    const emailList = participants.map(participant => participant.participantid.email);
-
-    console.log(`Sending email to: ${emailList.join(', ')}`);
-    console.log(`Email subject: ${subject}`);
-    console.log(`Email body: ${body}`);
-
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail', 
-      auth: {
-        user: process.env.EMAIL_USER, // Utilisation correcte des variables d'environnement
-        pass: process.env.EMAIL_PASS, 
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER, // Utilisation correcte des variables d'environnement
-      to: emailList,
-      subject: subject,
-      text: body,
-    };
-
-    await transporter.sendMail(mailOptions);
-
-    res.status(200).json({ message: 'Email sent successfully' });
-  } catch (error) {
-    console.error('Error sending email:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
 
 
 

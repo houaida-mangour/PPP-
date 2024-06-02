@@ -1,5 +1,3 @@
-// DetailedPlan.js
-
 import React from 'react';
 import './DetailedPlan.css';
 

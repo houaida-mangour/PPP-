@@ -16,11 +16,9 @@ const EventPagedash = () => {
         const eventsPerPage = [];
         let totalPages = 1;
   
-        // Récupérer le nombre total de pages
         const totalResponse = await axios.get(`http://localhost:8000/events`);
         totalPages = totalResponse.data.totalPages || 1;
   
-        // Récupérer les événements pour chaque page
         for (let i = 1; i <= totalPages; i++) {
           const response = await axios.get(`http://localhost:8000/events?page=${i}&limit=${pageSize}`);
           eventsPerPage.push(...(response.data.events || []));

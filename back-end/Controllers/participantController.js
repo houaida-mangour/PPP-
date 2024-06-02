@@ -1,4 +1,4 @@
-import Participant from '../models/Participant.js'; // Ensure the path to your model is correct
+import Participant from '../models/Participant.js'; 
 
 export const getUserParticipatedEvents = async (req, res) => {
     try {

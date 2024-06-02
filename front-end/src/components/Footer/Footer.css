@@ -1,6 +1,4 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+
 
 .bg-footer {
   background-color: #fff2ce
@@ -41,8 +39,8 @@
 }
 
 .footer-logo {
-  width: 300px; /* ajustez la largeur selon vos besoins */
-  height: 250px; /* permet de conserver les proportions de l'image */
+  width: 300px; 
+  height: 250px; 
 }
 
 
