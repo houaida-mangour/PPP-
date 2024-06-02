@@ -15,6 +15,9 @@ const UpdateEventForm = () => {
     participants: '',
     price: 0,
     imageFile: null,
+    cateringTypes: [],
+    roomingOptions: [],
+    detailedPlan: '',
   });
 
   useEffect(() => {
@@ -75,6 +78,23 @@ const UpdateEventForm = () => {
     }));
   };
 
+  const handleCheckboxChange = (field, value) => {
+    setEventData((prevData) => {
+      const isChecked = prevData[field].includes(value);
+      if (isChecked) {
+        return {
+          ...prevData,
+          [field]: prevData[field].filter((item) => item !== value),
+        };
+      } else {
+        return {
+          ...prevData,
+          [field]: [...prevData[field], value],
+        };
+      }
+    });
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -124,11 +144,84 @@ const UpdateEventForm = () => {
           onChange={handleChange}
           placeholder="Participants"
         />
-        <input
-          type="file"
-          name="imageFile"
+        <p>Catering</p>
+        <div className="checkbox-container">
+          <label className="catering-label">
+            <input
+              type="checkbox"
+              value="Break-coffee"
+              checked={eventData.cateringTypes.includes('Break-coffee')}
+              onChange={(e) => handleCheckboxChange('cateringTypes', e.target.value)}
+            />
+            <span>Break-coffee</span>
+          </label>
+          <label className="catering-label">
+            <input
+              type="checkbox"
+              value="Breakfast"
+              checked={eventData.cateringTypes.includes('Breakfast')}
+              onChange={(e) => handleCheckboxChange('cateringTypes', e.target.value)}
+            />
+            <span>Breakfast</span>
+          </label>
+          <label className="catering-label">
+            <input
+              type="checkbox"
+              value="Lunch"
+              checked={eventData.cateringTypes.includes('Lunch')}
+              onChange={(e) => handleCheckboxChange('cateringTypes', e.target.value)}
+            />
+            <span>Lunch</span>
+          </label>
+          <label className="catering-label">
+            <input
+              type="checkbox"
+              value="Dinner"
+              checked={eventData.cateringTypes.includes('Dinner')}
+              onChange={(e) => handleCheckboxChange('cateringTypes', e.target.value)}
+            />
+            <span>Dinner</span>
+          </label>
+        </div>
+        <p>Rooming</p>
+        <div className="checkbox-container">
+          <label className="rooming-label">
+            <input
+              type="checkbox"
+              value="Single"
+              checked={eventData.roomingOptions.includes('Single')}
+              onChange={(e) => handleCheckboxChange('roomingOptions', e.target.value)}
+            />
+            <span>Single</span>
+          </label>
+          <label className="rooming-label">
+            <input
+              type="checkbox"
+              value="Double"
+              checked={eventData.roomingOptions.includes('Double')}
+              onChange={(e) => handleCheckboxChange('roomingOptions', e.target.value)}
+            />
+            <span>Double</span>
+          </label>
+          <label className="rooming-label">
+            <input
+              type="checkbox"
+              value="Suite"
+              checked={eventData.roomingOptions.includes('Suite')}
+              onChange={(e) => handleCheckboxChange('roomingOptions', e.target.value)}
+            />
+            <span>Suite</span>
+          </label>
+        </div>
+        <label htmlFor="detailedPlan">Detailed Plan:</label>
+        <textarea
+          id="detailedPlan"
+          name="detailedPlan"
+          value={eventData.detailedPlan}
           onChange={handleChange}
+          placeholder="Enter the detailed plan for the event"
         />
+        <input type="file" name="imageFile" onChange={handleChange} />
         <button type="submit">Update Event</button>
       </form>
     </div>

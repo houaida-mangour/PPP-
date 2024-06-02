@@ -12,7 +12,7 @@ const EventSchema = new mongoose.Schema({
     organizer : { type: mongoose.Types.ObjectId, ref: 'User' },
     cateringTypes: [{ type: String }] ,
     roomingOptions: [{ type: String }],
-    detailedPlan: { type: String, required: true }
+    detailedPlan: { type: String },
 
 });
 

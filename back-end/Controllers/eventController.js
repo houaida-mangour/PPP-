@@ -28,7 +28,7 @@ export const createEvent = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'Image is required' });
     }
-    if (!name || !description || !startDate || !endDate || !location || price === undefined || !participants || !detailedPlan) {
+    if (!name || !description || !startDate || !endDate || !location || price === undefined || !participants ) {
       return res.status(400).json({ error: 'All fields are required' });
     }
     const imageUrl = `/uploads/${req.file.filename}`;
@@ -81,6 +81,7 @@ export const getEvents = async (req, res) => {
       return res.status(400).json({ error: 'Invalid pagination parameters' });
     }
     const events = await Event.find()
+      .sort({ startDate: -1 })
       .skip((parsedPage - 1) * parsedLimit)
       .limit(parsedLimit);
     const totalEvents = await Event.countDocuments();
@@ -121,14 +122,17 @@ export const getEventsByUser = async (req, res) => {
 
 export const updateEvent = async (req, res) => {
   try {
-    const { eventId, name, description, startDate, endDate, location, price, participants} = req.body;
+    const { eventId, name, description, startDate, endDate, location, price, participants, cateringTypes, roomingOptions, detailedPlan } = req.body;
+
     if (!eventId) {
       return res.status(400).json({ error: 'Event ID is required' });
     }
+
     const event = await Event.findById(eventId);
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
+
     if (name) event.name = name;
     if (description) event.description = description;
     if (startDate) event.startDate = startDate;
@@ -136,6 +140,10 @@ export const updateEvent = async (req, res) => {
     if (location) event.location = location;
     if (price !== undefined) event.price = price;
     if (participants !== undefined) event.participants = participants;
+    if (cateringTypes) event.cateringTypes = cateringTypes;
+    if (roomingOptions) event.roomingOptions = roomingOptions;
+    if (detailedPlan) event.detailedPlan = detailedPlan;
+
     if (req.file) {
       if (event.imageUrl) {
         const oldImagePath = path.join(path.resolve(), event.imageUrl);

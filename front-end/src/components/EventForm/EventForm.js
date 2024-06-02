@@ -176,8 +176,9 @@ const EventForm = () => {
         value={detailedPlan}
         onChange={(e) => setDetailedPlan(e.target.value)}
         placeholder="Enter the detailed plan for the event"
-        required
+        
       />
+      <p><b>Thumbnail</b>t</p>
       <input type="file" onChange={(e) => setImageFile(e.target.files[0])} required />
       <button type="submit">Create Event</button>
     </form>
