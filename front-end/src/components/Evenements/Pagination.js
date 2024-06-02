@@ -7,9 +7,9 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
 
   return (
     <div>
-      {page > 1 && <button onClick={() => handlePageChange(page - 1)}>Previous</button>}
+      {page > 1 && <button style={{ backgroundColor: '#d18100' }}  onClick={() => handlePageChange(page - 1)}>Previous</button>}
       <span>{page} / {totalPages}</span>
-      {page < totalPages && <button onClick={() => handlePageChange(page + 1)}>Next</button>}
+      {page < totalPages && <button style={{ backgroundColor: '#d18100' }}  onClick={() => handlePageChange(page + 1)}>Next</button>}
     </div>
   );
 };

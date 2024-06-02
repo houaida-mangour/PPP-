@@ -19,6 +19,8 @@ function AboutUs() {
                     <video className="eventvideo" src={eventVideo} alt="Illustration of people planning an event" controls></video>
                 </div>
             </div>
+            <p className="primary-subheading"> "DISCOVER OUR EVENTS"</p>
+
         </div>
     );
 }

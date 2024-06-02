@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Collection from '../../components/Evenements/Collection';
 import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer'
 
 const EventPage = () => {
   const [events, setEvents] = useState([]);
@@ -51,6 +52,7 @@ const EventPage = () => {
         totalPages={totalPages}
         onPageChange={setPage}
       />
+      <Footer/>
     </div>
   );
 };
