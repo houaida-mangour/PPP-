@@ -1,6 +1,7 @@
 import express from 'express';
 import { createEvent, getEvents, getEventById, updateEvent, deleteEvent, upload, 
-    getEventsByUser, participateInEvent,getEventParticipantsWithUsers, getAllEvents,sendEmailToParticipants } from '../Controllers/eventController.js';
+        getEventsByUser, participateInEvent,getEventParticipantsWithUsers, getAllEvents,sendEmailToParticipants, 
+                                                sendMessageToParticipants } from '../Controllers/eventController.js';
 import { verifyUser } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.put('/:id', verifyUser, upload.single('image'), updateEvent);
 router.delete('/:id', deleteEvent);
 router.post('/participate',  participateInEvent);
 router.get('/:id/participants', getEventParticipantsWithUsers);
+router.post('/:id/message', sendMessageToParticipants);
 router.post('/:id/send-email', sendEmailToParticipants);
 
 

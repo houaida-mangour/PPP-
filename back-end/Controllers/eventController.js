@@ -303,6 +303,7 @@ export const getEventParticipantsWithUsers = async (req, res) => {
 };
 
 
+
 export const sendEmailToParticipants = async (req, res) => {
   try {
     const { id } = req.params;
@@ -340,6 +341,40 @@ export const sendEmailToParticipants = async (req, res) => {
     res.status(200).json({ message: 'Email sent successfully' });
   } catch (error) {
     console.error('Error sending email:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
+export const sendMessageToParticipants = async (req, res) => {
+  try {
+    const { eventId, message } = req.body;
+
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+
+
+    
+
+    const participants = await Participant.find({ participantEventid: eventId }).populate('participantid');
+
+    if (!participants.length) {
+      return res.status(404).json({ message: 'No participants found for this event' });
+    }
+
+    const notifications = participants.map(participant => ({
+      userId: participant.participantid._id,
+      message: `Message from event "${event.name}": ${message}`
+    }));
+
+    await Notification.insertMany(notifications);
+
+    res.status(200).json({ message: 'Messages sent to all participants' });
+  } catch (error) {
+    console.error('Error sending message to participants:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

@@ -7,8 +7,7 @@ const ParticipantList = () => {
   const { id } = useParams();
   const [eventName, setEventName] = useState('');
   const [participants, setParticipants] = useState([]);
-  const [emailSubject, setEmailSubject] = useState('');
-  const [emailBody, setEmailBody] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchEventDetails = async () => {
@@ -37,16 +36,18 @@ const ParticipantList = () => {
     fetchParticipants();
   }, [id]);
 
-  const sendEmailToParticipants = async () => {
+  const sendMessageToParticipants = async () => {
+    console.log('Event ID:', id);
+    console.log('Message:', message);
     try {
-      await axios.post(`http://localhost:8000/events/${id}/send-email`, {
-        subject: emailSubject,
-        body: emailBody
+      await axios.post(`http://localhost:8000/events/${id}/message`, {
+        eventId: id,
+        message: message
       });
-      alert('Email sent successfully!');
+      alert('Message sent successfully!');
     } catch (error) {
-      console.error('Error sending email:', error);
-      alert('Failed to send email.');
+      console.error('Error sending message:', error);
+      alert('Failed to send message.');
     }
   };
 
@@ -76,20 +77,14 @@ const ParticipantList = () => {
         </tbody>
       </table>
 
-      <div className="email-form">
-        <h3>Send Email to Participants</h3>
-        <input 
-          type="text"
-          placeholder="Subject"
-          value={emailSubject}
-          onChange={(e) => setEmailSubject(e.target.value)}
-        />
+      <div className="message-form">
+        <h3>Send Message to Participants</h3>
         <textarea
-          placeholder="Body"
-          value={emailBody}
-          onChange={(e) => setEmailBody(e.target.value)}
+          placeholder="Your message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
-        <button onClick={sendEmailToParticipants}>Send Email</button>
+        <button onClick={sendMessageToParticipants}>Send Message</button>
       </div>
     </div>
   );
